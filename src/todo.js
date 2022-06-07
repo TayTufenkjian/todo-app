@@ -15,7 +15,8 @@ function showToDoForm() {
 }
 
 function showToDos() {
-    const allToDos = document.createElement('div');
+    const allToDos = document.getElementById('all-toDos');
+    allToDos.innerHTML = '';
     for (let item of toDos) {
         let itemDiv = document.createElement('div');
         itemDiv.textContent = `${item.title} due on ${item.dueDate}`;
