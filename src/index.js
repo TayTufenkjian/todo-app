@@ -1,3 +1,4 @@
+import './style.css';
 import {toDo, addToDo, showToDos} from './todo.js';
 
 
