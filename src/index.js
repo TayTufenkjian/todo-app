@@ -9,6 +9,7 @@ function component() {
     btn.textContent = 'Add';
     btn.addEventListener('click', () => {
         showToDoForm();
+        btn.classList.add('hidden');
     }); 
 
     element.append(btn);
@@ -17,3 +18,7 @@ function component() {
   }
   
   document.body.appendChild(component());
+
+  function showAddButton() {
+      
+  }
