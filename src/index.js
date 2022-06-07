@@ -3,7 +3,6 @@ import {toDo, addToDo, showToDos} from './todo.js';
 
 function component() {
     const element = document.createElement('div');
-    element.innerHTML = 'To Do App';
 
     const btn = document.createElement('button');
     btn.textContent = 'Add';

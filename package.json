@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/TayTufenkjian/todo-app#readme",
   "devDependencies": {
-    "html-webpack-plugin": "^5.5.0",
     "webpack-cli": "^4.9.2"
   }
 }

@@ -1,5 +1,6 @@
 let toDos = [];
 
+
 function toDo(id, title, complete, dueDate, priority, description) {
     return {id, title, complete, dueDate, priority, description};
 }
