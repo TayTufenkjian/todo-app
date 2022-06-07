@@ -9,6 +9,10 @@ function addToDo(item) {
     toDos.push(item);
 }
 
+function showToDoForm() {
+    document.getElementById('add-toDo').classList.remove('hidden');
+}
+
 function showToDos() {
     const allToDos = document.createElement('div');
     for (let item of toDos) {
@@ -19,5 +23,5 @@ function showToDos() {
     document.body.appendChild(allToDos);
 }
 
-export {toDo, addToDo, showToDos};
+export {toDo, addToDo, showToDoForm, showToDos};
 

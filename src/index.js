@@ -1,5 +1,5 @@
 import './style.css';
-import {toDo, addToDo, showToDos} from './todo.js';
+import {toDo, addToDo, showToDoForm, showToDos} from './todo.js';
 
 
 function component() {
@@ -8,9 +8,7 @@ function component() {
     const btn = document.createElement('button');
     btn.textContent = 'Add';
     btn.addEventListener('click', () => {
-        let newItem = toDo(1, 'Grocery shopping', false, '2022-06-17', 'low', 'Buy stuff and things');
-        addToDo(newItem);
-        showToDos();
+        showToDoForm();
     }); 
 
     element.append(btn);
