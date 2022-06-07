@@ -1,7 +1,8 @@
 let toDos = [];
 
 
-function toDo(id, title, complete, dueDate, priority, description) {
+function toDo(title, complete, dueDate, priority, description) {
+    const id = toDos.length + 1;
     return {id, title, complete, dueDate, priority, description};
 }
 

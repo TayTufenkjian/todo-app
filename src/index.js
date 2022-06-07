@@ -2,23 +2,23 @@ import './style.css';
 import {toDo, addToDo, showToDoForm, showToDos} from './todo.js';
 
 
-function component() {
-    const element = document.createElement('div');
 
-    const btn = document.createElement('button');
-    btn.textContent = 'Add';
-    btn.addEventListener('click', () => {
-        showToDoForm();
-        btn.classList.add('hidden');
-    }); 
+function listenForNewToDo() {
+    let btnAdd = document.getElementById('add-button');
+    btnAdd.addEventListener('click', () => {
+        let title = document.getElementById('title').value;
+        let dueDate = document.getElementById('due-date').value;
+        let priority = document.getElementById('priority').value;
+        let description = document.getElementById('description').value;
 
-    element.append(btn);
-  
-    return element;
+        let complete = false;
+
+        let newToDo = toDo(title, complete, dueDate, priority, description);
+        
+        addToDo(newToDo);
+
+        showToDos();
+    })
   }
-  
-  document.body.appendChild(component());
 
-  function showAddButton() {
-      
-  }
+  listenForNewToDo();
