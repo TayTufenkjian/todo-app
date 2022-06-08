@@ -39,7 +39,7 @@ function markDone(id) {
 function deleteToDo(id) {
     for (let item of toDos) {
         if (item.id === id) {
-            toDos.splice(indexOf(item), 1);
+            toDos.splice(toDos.indexOf(item), 1);
         }
     }
 }

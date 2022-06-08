@@ -113,17 +113,9 @@ function showToDos() {
 
         let btnEditDiv = createButtonInDiv('Edit', showEditToDoForm, item.id, false);
         let btnDoneDiv = createButtonInDiv('Mark done', markDone, item.id, true);
-
-        // let btnDeleteDiv = document.createElement('div');
-        // let btnDelete = document.createElement('button');
-        // btnDelete.textContent = 'Delete';
-        // btnDelete.addEventListener('click', () => {
-        //     deleteToDo(item.id);
-        //     showToDos();
-        // });
-        // btnDeleteDiv.append(btnDelete);
+        let btnDeleteDiv = createButtonInDiv('Delete', deleteToDo, item.id, true);
         
-        itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv);
+        itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
         allToDos.append(itemDiv);
     }
 }
