@@ -44,13 +44,13 @@ function showAddToDoForm() {
     })
 
     form.append(titleField, dueDateField, priorityField, btn);
-    document.getElementById('form-container').append(form);
+    document.querySelector('main').append(form);
 }
 
 
 function showEditToDoForm(id) {
     let form = document.createElement('form');
-    form.id = 'edit-todo';
+    form.classList.add('edit-todo');
 
     let titleField = createFormInput('text', 'title', 'title', 'Title');
     let dueDateField = createFormInput('date', 'due-date', 'due-date', 'Due');
@@ -82,7 +82,7 @@ function showEditToDoForm(id) {
     })
 
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
-    document.getElementById('form-container').append(form);
+    document.getElementById('all-todos').insertBefore(form, document.getElementById(`item-${id + 1}`));
 
     // Pre-fill form fields with any existing values
     let toDo = getToDo(id);
@@ -99,7 +99,7 @@ function showToDos() {
     const toDos = getToDos();
     for (let item of toDos) {
         let itemDiv = document.createElement('li');
-        itemDiv.id = item.id;
+        itemDiv.id = `item-${item.id}`;
 
         if (item.complete) {
             itemDiv.classList.add('done');
