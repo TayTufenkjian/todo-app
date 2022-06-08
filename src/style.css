@@ -46,6 +46,7 @@ nav {
 }
 
 nav ul {
+    cursor: pointer;
     display: grid;
     gap: 1rem;
     margin-top: 1rem;
