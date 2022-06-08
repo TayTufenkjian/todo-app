@@ -56,9 +56,15 @@ function showEditToDoForm(id) {
     let dueDateField = createFormInput('date', 'due-date', 'due-date', 'Due');
     let priorityField = createFormInput('number', 'priority', 'priority', 'Priority');
 
-    let descriptionField = document.createElement('textarea');
-    descriptionField.id = 'description';
-    descriptionField.name = 'description';
+    let descriptionField = document.createElement('div');
+    descriptionField.classList.add('form-field');
+    let descriptionLabel = document.createElement('label')
+    descriptionLabel.setAttribute('for', 'description');
+    descriptionLabel.textContent = 'Description';
+    let descriptionArea = document.createElement('textarea');
+    descriptionArea.id = 'description';
+    descriptionArea.name = 'description';
+    descriptionField.append(descriptionLabel, descriptionArea);
    
     let btn = document.createElement('button');
     btn.type = 'button';
@@ -83,11 +89,7 @@ function showEditToDoForm(id) {
     document.getElementById('title').value = toDo.title;
     document.getElementById('due-date').value = toDo.dueDate;
     document.getElementById('priority').value = toDo.priority;
-    if (toDo.description) {
-        descriptionField.value = toDo.description;
-    } else {
-        descriptionField.placeholder = 'Description';
-    }   
+    document.getElementById('description').value = toDo.description;
 }
 
 
