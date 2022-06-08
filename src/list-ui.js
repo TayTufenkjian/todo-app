@@ -1,13 +1,13 @@
-import { createFormInput, createButtonInDiv } from "./ui-helpers.js";
-import { addList } from "./list.js";
+import { createFormInput, clearPageContent} from "./ui-helpers.js";
+import { getLists, addList } from "./list.js";
+
+
+let main = document.querySelector('main');
 
 function listenForAddNewList() {
     document.getElementById('add-list').addEventListener('click', () => {
-        // Clear current page content
-        let main = document.querySelector('main');
-        main.innerHTML = '';
+        clearPageContent();
 
-        // Create new page content
         let header = document.createElement('h1');
         header.textContent = 'Add New List';
 
@@ -30,4 +30,27 @@ function listenForAddNewList() {
     });
 }
 
-export {listenForAddNewList};
+
+function listenForViewLists() {
+    document.getElementById('view-lists').addEventListener('click', () => {
+        clearPageContent();
+
+        let header = document.createElement('h1');
+        header.textContent = 'Your Lists';
+
+        let contents = document.createElement('ul');
+
+        let lists = getLists();
+
+        for (let list of lists) {
+            let listElement = document.createElement('li');
+            listElement.textContent = list.name;
+            contents.append(listElement);
+        }
+
+        main.append(header, contents);
+
+    });
+}
+
+export {listenForAddNewList, listenForViewLists};

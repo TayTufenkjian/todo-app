@@ -34,4 +34,9 @@ function createButtonInDiv(text, functionToRun, arg, reloadToDos) {
     return div;
 }
 
-export {createFormInput, createButtonInDiv};
+function clearPageContent() {
+    let main = document.querySelector('main');
+    main.innerHTML = '';
+}
+
+export {createFormInput, createButtonInDiv, clearPageContent};

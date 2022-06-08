@@ -1,5 +1,9 @@
 let lists = [];
 
+function getLists() {
+    return lists;
+}
+
 function listFactory(name) {
     let toDos = [];
     return {name, toDos};
@@ -10,4 +14,5 @@ function addList(name) {
     lists.push(newList);
 }
 
-export {addList};
+
+export {getLists, addList};
