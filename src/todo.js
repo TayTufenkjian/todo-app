@@ -45,4 +45,3 @@ function deleteToDo(id) {
 }
 
 export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo};
-

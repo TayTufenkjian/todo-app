@@ -1,22 +1,5 @@
+import {createFormInput, createButtonInDiv} from './ui-helpers.js';
 import {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
-
-
-function createFormInput(type, id, name, labelText) {
-    let div = document.createElement('div');
-    div.classList.add('form-field');
-    
-    let label = document.createElement('label');
-    label.setAttribute('for', id);
-    label.textContent = labelText;
-
-    let input = document.createElement('input');
-    input.type = type;
-    input.id = id;
-    input.name = name;
-
-    div.append(label, input);   
-    return div;
-}
 
 
 function showAddToDoForm() {
@@ -118,21 +101,6 @@ function showToDos() {
         itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
         allToDos.append(itemDiv);
     }
-}
-
-
-function createButtonInDiv(text, functionToRun, id, reloadToDos) {
-    let div = document.createElement('div');
-    let btn = document.createElement('button');
-    btn.textContent = text;
-    btn.addEventListener('click', () => {
-        functionToRun(id);
-        if (reloadToDos) { 
-            showToDos();
-        }
-    });
-    div.append(btn);
-    return div;
 }
 
 
