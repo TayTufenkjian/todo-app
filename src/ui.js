@@ -16,9 +16,16 @@ function showToDos() {
     document.body.appendChild(allToDos);
 }
 
+function listenForAddNew() {
+    let btnAddNew = document.getElementById('add-new');
+    btnAddNew.addEventListener('click', () => {
+        showToDoForm();
+    });
+}
+
 function listenForNewToDo() {
-    let btnAdd = document.getElementById('add-button');
-    btnAdd.addEventListener('click', () => {
+    let btnAddItem = document.getElementById('add-item');
+    btnAddItem.addEventListener('click', () => {
         let title = document.getElementById('title').value;
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
@@ -37,4 +44,4 @@ function listenForNewToDo() {
   }
 
 
-export {showToDoForm, showToDos, listenForNewToDo};
+export {showToDoForm, showToDos, listenForAddNew, listenForNewToDo};
