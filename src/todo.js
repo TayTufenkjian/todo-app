@@ -36,5 +36,13 @@ function markDone(id) {
     toDo.complete = true;
 }
 
-export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone};
+function deleteToDo(id) {
+    for (let item of toDos) {
+        if (item.id === id) {
+            toDos.splice(indexOf(item), 1);
+        }
+    }
+}
+
+export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo};
 

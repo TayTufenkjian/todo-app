@@ -1,4 +1,4 @@
-import {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone} from './todo.js';
+import {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
 
 
 function createFormInput(type, id, name, labelText) {
@@ -79,7 +79,7 @@ function showEditToDoForm(id) {
         editToDo(id, title, dueDate, priority, description);
         form.remove();
         showToDos();
-    })
+    });
 
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
     document.getElementById('all-todos').insertBefore(form, document.getElementById(`item-${id + 1}`));
@@ -111,26 +111,36 @@ function showToDos() {
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
 
-        let btnEditDiv = document.createElement('div');
-        let btnEdit = document.createElement('button');
-        btnEdit.textContent = 'Edit';
-        btnEdit.addEventListener('click', () => {
-            showEditToDoForm(item.id);
-        });
-        btnEditDiv.append(btnEdit);
+        let btnEditDiv = createButtonInDiv('Edit', showEditToDoForm, item.id, false);
+        let btnDoneDiv = createButtonInDiv('Mark done', markDone, item.id, true);
 
-        let btnDoneDiv = document.createElement('div');
-        let btnDone = document.createElement('button');
-        btnDone.textContent = 'Mark done';
-        btnDone.addEventListener('click', () => {
-            markDone(item.id);
-            showToDos();
-        });
-        btnDoneDiv.append(btnDone);
+        // let btnDeleteDiv = document.createElement('div');
+        // let btnDelete = document.createElement('button');
+        // btnDelete.textContent = 'Delete';
+        // btnDelete.addEventListener('click', () => {
+        //     deleteToDo(item.id);
+        //     showToDos();
+        // });
+        // btnDeleteDiv.append(btnDelete);
         
         itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv);
         allToDos.append(itemDiv);
     }
+}
+
+
+function createButtonInDiv(text, functionToRun, id, reloadToDos) {
+    let div = document.createElement('div');
+    let btn = document.createElement('button');
+    btn.textContent = text;
+    btn.addEventListener('click', () => {
+        functionToRun(id);
+        if (reloadToDos) { 
+            showToDos();
+        }
+    });
+    div.append(btn);
+    return div;
 }
 
 
