@@ -19,9 +19,7 @@ function showAddToDoForm() {
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
         
-        let newToDo = toDoFactory(title, dueDate, priority);
-        
-        addToDo(newToDo);
+        addToDo(title, dueDate, priority);
         form.remove();
         showToDos();
     })
