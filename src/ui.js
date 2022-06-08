@@ -4,6 +4,14 @@ function showToDoForm() {
     document.getElementById('add-todo').classList.remove('hidden');
 }
 
+function hideToDoForm() {
+    document.getElementById('add-todo').classList.add('hidden');
+}
+
+function resetToDoForm() {
+    document.getElementById('add-todo').reset();
+}
+
 function showToDos() {
     const allToDos = document.getElementById('all-todos');
     allToDos.innerHTML = '';   
@@ -35,11 +43,11 @@ function listenForNewToDo() {
         let newToDo = toDoFactory(title, complete, dueDate, priority, description);
         
         addToDo(newToDo);
-
         showToDos();
 
-        // Clear the form
-        document.getElementById('add-todo').reset();
+        resetToDoForm();
+        hideToDoForm();
+
     })
   }
 
