@@ -5,6 +5,10 @@
 }
 
 body {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 200px 1fr;
+    height: 100vh;
     margin: 0;
 }
 
@@ -28,14 +32,22 @@ li {
     list-style: none;
 }
 
-main {
-    margin: 1rem;
-}
-
 main > * {
     margin-bottom: 1rem;
 }
 
+nav {
+    background: rgb(161, 161, 255);
+    padding: 1rem;
+}
+
+nav ul {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
 ul {
+    margin: 0;
     padding: 0;
 }
