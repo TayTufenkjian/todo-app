@@ -1,4 +1,4 @@
-import {getToDos, getToDo, toDoFactory, addToDo, editToDo} from './todo.js';
+import {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone} from './todo.js';
 
 
 function createFormInput(type, id, name, labelText) {
@@ -101,21 +101,34 @@ function showToDos() {
         let itemDiv = document.createElement('li');
         itemDiv.id = item.id;
 
+        if (item.complete) {
+            itemDiv.classList.add('done');
+        }
+
         let titleDiv = document.createElement('div');
         titleDiv.textContent = `${item.title}`;
 
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
 
-        let btnDiv = document.createElement('div');
-        let btn = document.createElement('button');
-        btn.textContent = 'Edit';
-        btn.addEventListener('click', () => {
+        let btnEditDiv = document.createElement('div');
+        let btnEdit = document.createElement('button');
+        btnEdit.textContent = 'Edit';
+        btnEdit.addEventListener('click', () => {
             showEditToDoForm(item.id);
         });
+        btnEditDiv.append(btnEdit);
 
-        btnDiv.append(btn);
-        itemDiv.append(titleDiv, dueDateDiv, btnDiv);
+        let btnDoneDiv = document.createElement('div');
+        let btnDone = document.createElement('button');
+        btnDone.textContent = 'Mark done';
+        btnDone.addEventListener('click', () => {
+            markDone(item.id);
+            showToDos();
+        });
+        btnDoneDiv.append(btnDone);
+        
+        itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv);
         allToDos.append(itemDiv);
     }
 }

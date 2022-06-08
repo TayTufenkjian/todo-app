@@ -14,9 +14,9 @@ function getToDo(id) {
 
 function toDoFactory(title, dueDate, priority) {
     const id = toDos.length + 1;
-    let complete = false;
+    let done = false;
     let description = '';
-    return {id, title, complete, dueDate, priority, description};
+    return {id, title, done, dueDate, priority, description};
 }
 
 function addToDo(item) {
@@ -31,5 +31,10 @@ function editToDo(id, title, dueDate, priority, description) {
     toDo.description = description;
 }
 
-export {getToDos, getToDo, toDoFactory, addToDo, editToDo};
+function markDone(id) {
+    let toDo = getToDo(id);
+    toDo.complete = true;
+}
+
+export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone};
 
