@@ -24,14 +24,14 @@ function showToDos() {
     document.body.appendChild(allToDos);
 }
 
-function listenForAddNew() {
+function listenForAddNewForm() {
     let btnAddNew = document.getElementById('add-new');
     btnAddNew.addEventListener('click', () => {
         showToDoForm();
     });
 }
 
-function listenForNewToDo() {
+function listenForAddNewToDo() {
     let btnAddItem = document.getElementById('add-item');
     btnAddItem.addEventListener('click', () => {
         let title = document.getElementById('title').value;
@@ -52,4 +52,4 @@ function listenForNewToDo() {
   }
 
 
-export {showToDoForm, showToDos, listenForAddNew, listenForNewToDo};
+export {showToDoForm, showToDos, listenForAddNewForm, listenForAddNewToDo};
