@@ -35,9 +35,8 @@ function showAddToDoForm() {
         let title = document.getElementById('title').value;
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
-        let complete = false;
         
-        let newToDo = toDoFactory(title, complete, dueDate, priority);
+        let newToDo = toDoFactory(title, dueDate, priority);
         
         addToDo(newToDo);
         form.remove();
@@ -70,7 +69,7 @@ function showEditToDoForm(id) {
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
         let description = document.getElementById('description').value;
-        
+
         editToDo(id, title, dueDate, priority, description);
         form.remove();
         showToDos();
