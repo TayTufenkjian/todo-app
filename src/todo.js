@@ -4,8 +4,9 @@ function getToDos() {
     return toDos;
 }
 
-function toDoFactory(title, complete, dueDate, priority, description) {
+function toDoFactory(title, complete, dueDate, priority) {
     const id = toDos.length + 1;
+    let description = '';
     return {id, title, complete, dueDate, priority, description};
 }
 
