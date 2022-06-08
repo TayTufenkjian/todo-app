@@ -22,7 +22,13 @@ function addToDo(item) {
     toDos.push(item);
 }
 
+function editToDo(id, title, dueDate, priority, description) {
+    let toDo = getToDo(id);
+    toDo.title = title;
+    toDo.dueDate = dueDate;
+    toDo.priority = priority;
+    toDo.description = description;
+}
 
-
-export {getToDos, getToDo, toDoFactory, addToDo};
+export {getToDos, getToDo, toDoFactory, addToDo, editToDo};
 
