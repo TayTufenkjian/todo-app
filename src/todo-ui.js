@@ -82,7 +82,7 @@ function showToDos() {
         let itemDiv = document.createElement('li');
         itemDiv.id = `item-${item.id}`;
 
-        if (item.complete) {
+        if (item.done) {
             itemDiv.classList.add('done');
         }
 

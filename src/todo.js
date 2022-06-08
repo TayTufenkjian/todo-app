@@ -34,24 +34,36 @@ function addToDo(title, dueDate, priority) {
 }
 
 function editToDo(id, title, dueDate, priority, description) {
-    let toDo = getToDo(id);
-    toDo.title = title;
-    toDo.dueDate = dueDate;
-    toDo.priority = priority;
-    toDo.description = description;
+    let toDos = getToDos();
+    for (let item of toDos) {
+        if (item.id === id) {
+            item.title = title;
+            item.dueDate = dueDate;
+            item.priority = priority;
+            item.description = description;
+        }
+    }
+    localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 function markDone(id) {
-    let toDo = getToDo(id);
-    toDo.complete = true;
+    let toDos = getToDos();
+    for (let item of toDos) {
+        if (item.id === id) {
+            item.done = true;
+        }
+    }
+    localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 function deleteToDo(id) {
+    let toDos = getToDos();
     for (let item of toDos) {
         if (item.id === id) {
             toDos.splice(toDos.indexOf(item), 1);
         }
     }
+    localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo};
