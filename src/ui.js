@@ -21,7 +21,6 @@ function showToDos() {
         itemDiv.textContent = `${item.title} due on ${item.dueDate}`;
         allToDos.append(itemDiv);
     }
-    document.body.appendChild(allToDos);
 }
 
 function listenForAddNewForm() {
