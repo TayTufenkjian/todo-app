@@ -1,4 +1,4 @@
-import {showToDos} from './ui.js';
+import {showToDos} from './todo-ui.js';
 
 // Helper functions for creating HTML elements
 
@@ -19,12 +19,13 @@ function createFormInput(type, id, name, labelText) {
     return div;
 }
 
-function createButtonInDiv(text, functionToRun, id, reloadToDos) {
+function createButtonInDiv(text, functionToRun, arg, reloadToDos) {
     let div = document.createElement('div');
     let btn = document.createElement('button');
     btn.textContent = text;
-    btn.addEventListener('click', () => {
-        functionToRun(id);
+    btn.addEventListener('click', () => {     
+        functionToRun(arg);   
+
         if (reloadToDos) { 
             showToDos();
         }
