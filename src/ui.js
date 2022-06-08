@@ -1,4 +1,4 @@
-import {getToDos, toDoFactory, addToDo} from './todo.js';
+import {getToDos, getToDo, toDoFactory, addToDo} from './todo.js';
 
 
 function createFormInput(type, id, name, labelText) {
@@ -51,19 +51,18 @@ function showAddToDoForm() {
 }
 
 
-function showEditToDoForm() {
+function showEditToDoForm(id) {
     let form = document.createElement('form');
     form.id = 'edit-todo';
 
     let titleField = createFormInput('text', 'title', 'title', 'Title');
     let dueDateField = createFormInput('date', 'due-date', 'due-date', 'Due');
     let priorityField = createFormInput('number', 'priority', 'priority', 'Priority');
-    
+
     let descriptionField = document.createElement('textarea');
     descriptionField.id = 'description';
     descriptionField.name = 'description';
-    descriptionField.placeholder = 'Description';
-
+   
     let btn = document.createElement('button');
     btn.type = 'button';
     btn.id = 'edit-item';
@@ -71,6 +70,17 @@ function showEditToDoForm() {
 
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
     document.getElementById('form-container').append(form);
+
+    // Pre-fill form fields with any existing values
+    let toDo = getToDo(id);
+    document.getElementById('title').value = toDo.title;
+    document.getElementById('due-date').value = toDo.dueDate;
+    document.getElementById('priority').value = toDo.priority;
+    if (toDo.description) {
+        descriptionField.value = toDo.description;
+    } else {
+        descriptionField.placeholder = 'Description';
+    }   
 }
 
 
@@ -85,10 +95,11 @@ function showToDos() {
         let btn = document.createElement('button');
         btn.textContent = 'Edit';
         btn.addEventListener('click', () => {
-            showEditToDoForm();
+            showEditToDoForm(item.id);
         });
 
-        allToDos.append(itemDiv, btn);
+        itemDiv.append(btn);
+        allToDos.append(itemDiv);
     }
 }
 

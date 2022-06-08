@@ -4,6 +4,14 @@ function getToDos() {
     return toDos;
 }
 
+function getToDo(id) {
+    for (let item of toDos) {
+        if (item.id === id) {
+            return item;
+        }
+    }
+}
+
 function toDoFactory(title, complete, dueDate, priority) {
     const id = toDos.length + 1;
     let description = '';
@@ -16,5 +24,5 @@ function addToDo(item) {
 
 
 
-export {getToDos, toDoFactory, addToDo};
+export {getToDos, getToDo, toDoFactory, addToDo};
 
