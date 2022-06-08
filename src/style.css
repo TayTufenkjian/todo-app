@@ -1,13 +1,37 @@
-.hidden {
-    display: none;
+#all-todos li {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 1rem;
 }
 
-main > * {
-    margin-bottom: 1rem;
+body {
+    margin: 0;
+}
+
+body, button, input[type="date"] {
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, 
+        avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, 
+        roboto, noto, arial, sans-serif;
 }
 
 .form-field {
     display: grid;
     grid-template-columns: 100px 200px;
     margin-bottom: 1rem;
+}
+
+li {
+    list-style: none;
+}
+
+main {
+    margin: 1rem;
+}
+
+main > * {
+    margin-bottom: 1rem;
+}
+
+ul {
+    padding: 0;
 }

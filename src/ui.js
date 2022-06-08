@@ -98,16 +98,24 @@ function showToDos() {
     allToDos.innerHTML = '';   
     const toDos = getToDos();
     for (let item of toDos) {
-        let itemDiv = document.createElement('div');
+        let itemDiv = document.createElement('li');
         itemDiv.id = item.id;
-        itemDiv.textContent = `${item.title} due on ${item.dueDate}`;
+
+        let titleDiv = document.createElement('div');
+        titleDiv.textContent = `${item.title}`;
+
+        let dueDateDiv = document.createElement('div');
+        dueDateDiv.textContent = `${item.dueDate}`;
+
+        let btnDiv = document.createElement('div');
         let btn = document.createElement('button');
         btn.textContent = 'Edit';
         btn.addEventListener('click', () => {
             showEditToDoForm(item.id);
         });
 
-        itemDiv.append(btn);
+        btnDiv.append(btn);
+        itemDiv.append(titleDiv, dueDateDiv, btnDiv);
         allToDos.append(itemDiv);
     }
 }
