@@ -2,16 +2,16 @@
 
 function getLists() {
     if (localStorage.getItem('lists') === null) {
-        let lists = [];
+        // Initialize with a default list for todo items that do not have a user-specified list
+        let lists = [{id: 0, name: 'default'}];  
         localStorage.setItem('lists', JSON.stringify(lists));
     } 
     return JSON.parse(localStorage.getItem('lists'));
 }
 
 function listFactory(name) {
-    const id = getLists().length + 1;
-    let toDos = [];
-    return {id, name, toDos};
+    const id = getLists().length;
+    return {id, name};
 }
 
 function addList(name) {

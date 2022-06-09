@@ -17,11 +17,12 @@ function getToDo(id) {
     }
 }
 
-function toDoFactory(title, dueDate, priority) {
+// Default list for a new todo item is the default list (id 0)
+function toDoFactory(title, dueDate, priority, list=0) {
     const id = getToDos().length + 1;
     let done = false;
     let description = '';
-    return {id, title, done, dueDate, priority, description};
+    return {id, title, done, dueDate, priority, description, list};
 }
 
 function addToDo(title, dueDate, priority) {
