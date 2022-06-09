@@ -1,5 +1,5 @@
-import { createFormInput, clearPageContent, createPageHeader} from "./ui-helpers.js";
-import { getLists, addList } from "./list.js";
+import { createFormInput, clearPageContent, createPageHeader} from './ui-helpers.js';
+import { getLists, addList } from './list.js';
 
 
 let main = document.querySelector('main');

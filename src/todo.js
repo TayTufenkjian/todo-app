@@ -1,13 +1,11 @@
+// Logic for handling todo items
 
 function getToDos() {
-    try {
-        let toDos = JSON.parse(localStorage.getItem("toDos"));
-        return toDos;
-    }
-    catch(err) {
+    if (localStorage.getItem('toDos') === null) {
         let toDos = [];
-        localStorage.setItem("toDos", JSON.stringify(toDos));
-    }
+        localStorage.setItem('toDos', JSON.stringify(toDos));
+    } 
+    return JSON.parse(localStorage.getItem('toDos'));
 }
 
 function getToDo(id) {
@@ -30,7 +28,7 @@ function addToDo(title, dueDate, priority) {
     let newToDo = toDoFactory(title, dueDate, priority);
     let toDos = getToDos();
     toDos.push(newToDo);
-    localStorage.setItem("toDos", JSON.stringify(toDos));
+    localStorage.setItem('toDos', JSON.stringify(toDos));
 }
 
 function editToDo(id, title, dueDate, priority, description) {
@@ -43,7 +41,7 @@ function editToDo(id, title, dueDate, priority, description) {
             item.description = description;
         }
     }
-    localStorage.setItem("toDos", JSON.stringify(toDos));
+    localStorage.setItem('toDos', JSON.stringify(toDos));
 }
 
 function markDone(id) {
@@ -53,7 +51,7 @@ function markDone(id) {
             item.done = true;
         }
     }
-    localStorage.setItem("toDos", JSON.stringify(toDos));
+    localStorage.setItem('toDos', JSON.stringify(toDos));
 }
 
 function deleteToDo(id) {
@@ -63,7 +61,7 @@ function deleteToDo(id) {
             toDos.splice(toDos.indexOf(item), 1);
         }
     }
-    localStorage.setItem("toDos", JSON.stringify(toDos));
+    localStorage.setItem('toDos', JSON.stringify(toDos));
 }
 
 export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo};
