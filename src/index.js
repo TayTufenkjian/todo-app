@@ -1,14 +1,14 @@
 import './style.css';
-import {showToDos, listenForAddNewForm} from './todo-ui.js';
-import {listenForAddNewList, listenForViewLists} from './list-ui.js';
+import {showToDos, listenForShowToDos} from './todo-ui.js';
+import {listenForAddNewList, listenForShowLists} from './list-ui.js';
 import { addList } from './list';
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    showToDos();
-    listenForAddNewForm();
+    showToDos(); 
+    listenForShowToDos();
     listenForAddNewList();
-    listenForViewLists();
+    listenForShowLists();
 
     addList('Groceries');
     addList('Vacation Planning');

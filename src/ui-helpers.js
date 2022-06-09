@@ -39,4 +39,10 @@ function clearPageContent() {
     main.innerHTML = '';
 }
 
-export {createFormInput, createButtonInDiv, clearPageContent};
+function createPageHeader(text) {
+    let header = document.createElement('h1');
+    header.textContent = text;
+    return header;
+}
+
+export {createFormInput, createButtonInDiv, clearPageContent, createPageHeader};

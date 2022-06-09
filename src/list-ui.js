@@ -1,4 +1,4 @@
-import { createFormInput, clearPageContent} from "./ui-helpers.js";
+import { createFormInput, clearPageContent, createPageHeader} from "./ui-helpers.js";
 import { getLists, addList } from "./list.js";
 
 
@@ -6,11 +6,9 @@ let main = document.querySelector('main');
 
 function listenForAddNewList() {
     document.getElementById('add-list').addEventListener('click', () => {
+        
         clearPageContent();
-
-        let header = document.createElement('h1');
-        header.textContent = 'Add New List';
-
+        let header = createPageHeader('Add New List');
         let content = createFormInput('text', 'list-name', 'list-name', 'Name of list');
         
         main.append(header, content);
@@ -31,15 +29,12 @@ function listenForAddNewList() {
 }
 
 
-function listenForViewLists() {
-    document.getElementById('view-lists').addEventListener('click', () => {
+function listenForShowLists() {
+    document.getElementById('show-lists').addEventListener('click', () => {       
+       
         clearPageContent();
-
-        let header = document.createElement('h1');
-        header.textContent = 'Your Lists';
-
+        let header = createPageHeader('Your Lists');
         let contents = document.createElement('ul');
-
         let lists = getLists();
 
         for (let list of lists) {
@@ -53,4 +48,4 @@ function listenForViewLists() {
     });
 }
 
-export {listenForAddNewList, listenForViewLists};
+export {listenForAddNewList, listenForShowLists};

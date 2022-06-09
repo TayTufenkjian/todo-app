@@ -1,5 +1,5 @@
-import {createFormInput, createButtonInDiv} from './ui-helpers.js';
-import {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
+import {createFormInput, createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
+import {getToDos, getToDo, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
 
 
 function showAddToDoForm() {
@@ -75,8 +75,13 @@ function showEditToDoForm(id) {
 
 
 function showToDos() {
-    const allToDos = document.getElementById('all-todos');
-    allToDos.innerHTML = '';   
+
+    clearPageContent();
+    let header = createPageHeader('To Do App');
+
+    let allToDos = document.createElement('div');
+    allToDos.id = 'all-todos';
+
     const toDos = getToDos();
     for (let item of toDos) {
         let itemDiv = document.createElement('li');
@@ -99,15 +104,18 @@ function showToDos() {
         itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
         allToDos.append(itemDiv);
     }
+
+    let btn = createButtonInDiv('Add new', showAddToDoForm, '', false);
+
+    document.querySelector('main').append(header, allToDos, btn);
 }
 
 
-function listenForAddNewForm() {
-    let btnAddNew = document.getElementById('add-new');
-    btnAddNew.addEventListener('click', () => {
-        showAddToDoForm();
+function listenForShowToDos() {
+    document.getElementById('show-todos').addEventListener('click', () => {
+        showToDos();
     });
 }
 
 
-export {showToDos, listenForAddNewForm};
+export {showToDos, listenForShowToDos};
