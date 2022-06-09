@@ -1,8 +1,9 @@
 import {createFormInput, createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
 import {getToDos, getToDo, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
+import {showListItems} from './list-ui.js';
 
 
-function showAddToDoForm() {
+function showAddToDoForm(list=0) {
     let form = document.createElement('form');
     form.id = 'add-new';
 
@@ -19,9 +20,14 @@ function showAddToDoForm() {
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
         
-        addToDo(title, dueDate, priority);
+        addToDo(title, dueDate, priority, list);
         form.remove();
-        showToDos();
+        
+        if (list === 0) {
+            showToDos();
+        } else {
+            showListItems(list);
+        }
     })
 
     form.append(titleField, dueDateField, priorityField, btn);
@@ -118,4 +124,4 @@ function listenForShowToDos() {
 }
 
 
-export {showToDos, listenForShowToDos};
+export {showToDos, listenForShowToDos, showAddToDoForm};

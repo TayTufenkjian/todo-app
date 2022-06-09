@@ -8,6 +8,7 @@ function getToDos() {
     return JSON.parse(localStorage.getItem('toDos'));
 }
 
+
 function getToDo(id) {
     let toDos = getToDos();
     for (let item of toDos) {
@@ -17,20 +18,23 @@ function getToDo(id) {
     }
 }
 
-// Default list for a new todo item is the default list (id 0)
-function toDoFactory(title, dueDate, priority, list=0) {
+
+function toDoFactory(title, dueDate, priority, list) {
     const id = getToDos().length + 1;
     let done = false;
     let description = '';
     return {id, title, done, dueDate, priority, description, list};
 }
 
-function addToDo(title, dueDate, priority) {
-    let newToDo = toDoFactory(title, dueDate, priority);
+
+// Default list for a new todo item is the default list (id 0)
+function addToDo(title, dueDate, priority, list=0) {
+    let newToDo = toDoFactory(title, dueDate, priority, list);
     let toDos = getToDos();
     toDos.push(newToDo);
     localStorage.setItem('toDos', JSON.stringify(toDos));
 }
+
 
 function editToDo(id, title, dueDate, priority, description) {
     let toDos = getToDos();
@@ -45,6 +49,7 @@ function editToDo(id, title, dueDate, priority, description) {
     localStorage.setItem('toDos', JSON.stringify(toDos));
 }
 
+
 function markDone(id) {
     let toDos = getToDos();
     for (let item of toDos) {
@@ -55,6 +60,7 @@ function markDone(id) {
     localStorage.setItem('toDos', JSON.stringify(toDos));
 }
 
+
 function deleteToDo(id) {
     let toDos = getToDos();
     for (let item of toDos) {
@@ -64,5 +70,6 @@ function deleteToDo(id) {
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
 }
+
 
 export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo};
