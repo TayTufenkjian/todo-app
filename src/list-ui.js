@@ -34,9 +34,10 @@ function showLists() {
     clearPageContent();
     let header = createPageHeader('Your Lists');
     let contents = document.createElement('ul');
-    let lists = getLists();
 
-    for (let list of lists) {
+    // Skip the default list when displaying the user's lists
+    let userLists = getLists().slice(1);
+    for (let list of userLists) {
         let listElement = document.createElement('li');
         listElement.textContent = list.name;
         contents.append(listElement);
