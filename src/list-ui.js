@@ -20,6 +20,7 @@ function listenForAddNewList() {
         btn.addEventListener('click', () => {
             let listName = document.getElementById('list-name').value;
             addList(listName);
+            showLists();
         });
         btnDiv.append(btn);
 
