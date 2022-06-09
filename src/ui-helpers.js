@@ -1,4 +1,4 @@
-import {showToDos} from './todo-ui.js';
+import {showAllToDos} from './todo-ui.js';
 
 // Helper functions for creating HTML elements
 
@@ -27,7 +27,7 @@ function createButtonInDiv(text, functionToRun, arg, reloadToDos) {
         functionToRun(arg);   
 
         if (reloadToDos) { 
-            showToDos();
+            showAllToDos();
         }
     });
     div.append(btn);

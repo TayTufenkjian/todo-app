@@ -22,9 +22,9 @@ function showAddToDoForm(list=0) {
         
         addToDo(title, dueDate, priority, list);
         form.remove();
-        
+
         if (list === 0) {
-            showToDos();
+            showAllToDos();
         } else {
             showListItems(list);
         }
@@ -65,11 +65,11 @@ function showEditToDoForm(id) {
 
         editToDo(id, title, dueDate, priority, description);
         form.remove();
-        showToDos();
+        showAllToDos();
     });
 
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
-    document.getElementById('all-todos').insertBefore(form, document.getElementById(`item-${id + 1}`));
+    document.querySelector('.todos').insertBefore(form, document.getElementById(`item-${id + 1}`));
 
     // Pre-fill form fields with any existing values
     let toDo = getToDo(id);
@@ -80,16 +80,11 @@ function showEditToDoForm(id) {
 }
 
 
-function showToDos() {
+function showToDos(arrToDos) {
+    let div = document.createElement('div');
+    div.classList.add('todos');
 
-    clearPageContent();
-    let header = createPageHeader('To Do App');
-
-    let allToDos = document.createElement('div');
-    allToDos.id = 'all-todos';
-
-    const toDos = getToDos();
-    for (let item of toDos) {
+    for (let item of arrToDos) {
         let itemDiv = document.createElement('li');
         itemDiv.id = `item-${item.id}`;
 
@@ -108,20 +103,30 @@ function showToDos() {
         let btnDeleteDiv = createButtonInDiv('Delete', deleteToDo, item.id, true);
         
         itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
-        allToDos.append(itemDiv);
+        div.append(itemDiv);
     }
+    return div;
+}
 
-    let btn = createButtonInDiv('Add new', showAddToDoForm, '', false);
 
-    document.querySelector('main').append(header, allToDos, btn);
+function showAllToDos() {
+    clearPageContent();
+    let header = createPageHeader('All To Dos');
+
+    let allToDos = getToDos();
+    let allToDosDiv = showToDos(allToDos);
+
+    let btn = createButtonInDiv('Add new', showAddToDoForm, 0, false);
+
+    document.querySelector('main').append(header, allToDosDiv, btn);
 }
 
 
 function listenForShowToDos() {
     document.getElementById('show-todos').addEventListener('click', () => {
-        showToDos();
+        showAllToDos();
     });
 }
 
 
-export {showToDos, listenForShowToDos, showAddToDoForm};
+export {showToDos, showAllToDos, listenForShowToDos, showAddToDoForm};

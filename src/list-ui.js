@@ -1,6 +1,6 @@
 import { createFormInput, clearPageContent, createPageHeader, createButtonInDiv} from './ui-helpers.js';
 import { getLists, addList, getListItems, getListName } from './list.js';
-import { showAddToDoForm } from './todo-ui.js'
+import { showAddToDoForm, showToDos } from './todo-ui.js'
 
 
 let main = document.querySelector('main');
@@ -65,17 +65,12 @@ function showListItems(listID) {
     let listName = getListName(listID);
     let header = createPageHeader(listName);
 
-    let contents = document.createElement('ul');
     let listItems = getListItems(listID);
-    for (let item of listItems) {
-        let itemElement = document.createElement('li');
-        itemElement.textContent = item.title;
-        contents.append(itemElement);
-    }
+    let listItemsDiv = showToDos(listItems);    
 
     let btn = createButtonInDiv('Add new', showAddToDoForm, listID, false);
 
-    main.append(header, contents, btn);
+    main.append(header, listItemsDiv, btn);
 }
 
 
