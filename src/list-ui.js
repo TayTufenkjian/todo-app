@@ -29,22 +29,25 @@ function listenForAddNewList() {
 }
 
 
+function showLists() {
+    clearPageContent();
+    let header = createPageHeader('Your Lists');
+    let contents = document.createElement('ul');
+    let lists = getLists();
+
+    for (let list of lists) {
+        let listElement = document.createElement('li');
+        listElement.textContent = list.name;
+        contents.append(listElement);
+    }
+
+    main.append(header, contents);
+}
+
+
 function listenForShowLists() {
     document.getElementById('show-lists').addEventListener('click', () => {       
-       
-        clearPageContent();
-        let header = createPageHeader('Your Lists');
-        let contents = document.createElement('ul');
-        let lists = getLists();
-
-        for (let list of lists) {
-            let listElement = document.createElement('li');
-            listElement.textContent = list.name;
-            contents.append(listElement);
-        }
-
-        main.append(header, contents);
-
+       showLists();
     });
 }
 
