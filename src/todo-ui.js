@@ -83,29 +83,26 @@ function showToDos() {
     allToDos.id = 'all-todos';
 
     const toDos = getToDos();
-    console.log(`toDos is a ${typeof toDos} and has ${toDos.length} items`);
-    if (toDos.length > 0) {
-        for (let item of toDos) {
-            let itemDiv = document.createElement('li');
-            itemDiv.id = `item-${item.id}`;
-    
-            if (item.done) {
-                itemDiv.classList.add('done');
-            }
-    
-            let titleDiv = document.createElement('div');
-            titleDiv.textContent = `${item.title}`;
-    
-            let dueDateDiv = document.createElement('div');
-            dueDateDiv.textContent = `${item.dueDate}`;
-    
-            let btnEditDiv = createButtonInDiv('Edit', showEditToDoForm, item.id, false);
-            let btnDoneDiv = createButtonInDiv('Mark done', markDone, item.id, true);
-            let btnDeleteDiv = createButtonInDiv('Delete', deleteToDo, item.id, true);
-            
-            itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
-            allToDos.append(itemDiv);
+    for (let item of toDos) {
+        let itemDiv = document.createElement('li');
+        itemDiv.id = `item-${item.id}`;
+
+        if (item.done) {
+            itemDiv.classList.add('done');
         }
+
+        let titleDiv = document.createElement('div');
+        titleDiv.textContent = `${item.title}`;
+
+        let dueDateDiv = document.createElement('div');
+        dueDateDiv.textContent = `${item.dueDate}`;
+
+        let btnEditDiv = createButtonInDiv('Edit', showEditToDoForm, item.id, false);
+        let btnDoneDiv = createButtonInDiv('Mark done', markDone, item.id, true);
+        let btnDeleteDiv = createButtonInDiv('Delete', deleteToDo, item.id, true);
+        
+        itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
+        allToDos.append(itemDiv);
     }
 
     let btn = createButtonInDiv('Add new', showAddToDoForm, '', false);
