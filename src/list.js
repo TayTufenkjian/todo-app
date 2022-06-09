@@ -1,14 +1,11 @@
-
+// Logic for handling lists
 
 function getLists() {
-    try {
-        let lists = JSON.parse(localStorage.getItem("lists"));
-        return lists;    
-    } catch (error) {
-        let lists = [{name: 'List One'}, {name: 'List Two'}];
-        localStorage.setItem("lists", JSON.stringify(lists));
-        return lists;
-    }
+    if (localStorage.getItem('lists') === null) {
+        let lists = [];
+        localStorage.setItem('lists', JSON.stringify(lists));
+    } 
+    return JSON.parse(localStorage.getItem('lists'));
 }
 
 function listFactory(name) {
