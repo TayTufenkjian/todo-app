@@ -9,7 +9,9 @@ function getLists() {
 }
 
 function listFactory(name) {
-    return {name};
+    const id = getLists().length + 1;
+    let toDos = [];
+    return {id, name, toDos};
 }
 
 function addList(name) {
