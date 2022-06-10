@@ -23,6 +23,8 @@ function showAddToDoForm(listID=0) {
         addToDo(title, dueDate, priority, listID);
         form.remove();
 
+        // If adding a new todo from the all todos page, reload all todo items
+        // Otherwise reload list items
         if (listID === 0) {
             showAllToDos();
         } else {
@@ -76,6 +78,7 @@ function showEditToDoForm(id) {
         }
     });
 
+    // Insert the form just below the relevant todo item
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
     document.querySelector('.todos').insertBefore(form, document.getElementById(`item-${id + 1}`));
 
@@ -89,15 +92,16 @@ function showEditToDoForm(id) {
 
 
 function showToDos(arrToDos, listID=0) {
-    let div = document.createElement('div');
-    div.classList.add('todos');
-
+    // Generate an HTML unordered list from any array of todo items
+    let unorderedList = document.createElement('ul');
+    unorderedList.classList.add('todos');
+    
     for (let item of arrToDos) {
-        let itemDiv = document.createElement('li');
-        itemDiv.id = `item-${item.id}`;
+        let todoElement = document.createElement('li');
+        todoElement.id = `item-${item.id}`;
 
         if (item.done) {
-            itemDiv.classList.add('done');
+            todoElement.classList.add('done');
         }
 
         let titleDiv = document.createElement('div');
@@ -132,10 +136,10 @@ function showToDos(arrToDos, listID=0) {
         let btnDoneDiv = createButtonInDiv('Mark done', markDoneFunction);
         let btnDeleteDiv = createButtonInDiv('Delete', deleteFunction);
         
-        itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
-        div.append(itemDiv);
+        todoElement.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
+        unorderedList.append(todoElement);
     }
-    return div;
+    return unorderedList;
 }
 
 
