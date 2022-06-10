@@ -58,7 +58,7 @@ nav ul {
     margin-right: 1rem;
 }
 
-.todos li {
+.todos .summary {
     display: grid;
     grid-template-columns: 200px 100px;
     margin-bottom: 1rem;

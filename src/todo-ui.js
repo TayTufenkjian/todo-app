@@ -110,11 +110,14 @@ function showToDos(arrToDos, listID=0) {
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
 
-        todoElement.addEventListener('click', () => {
-            showToDoDetails(item.id);
+        let container = document.createElement('div');
+        container.classList.add('summary');
+        container.addEventListener('click', () => {
+            toggleDetails(item.id);
         });
 
-        todoElement.append(titleDiv, dueDateDiv);
+        container.append(titleDiv, dueDateDiv);
+        todoElement.append(container);
         unorderedList.append(todoElement);
     }
     return unorderedList;
@@ -144,6 +147,7 @@ function listenForShowToDos() {
 
 function showToDoDetails(id, listID=0) {
     let divDetails = document.createElement('div');
+    divDetails.id = `details-${id}`;
     divDetails.classList.add('todo-details');
 
     // Get the additional properties of the todo item
@@ -206,6 +210,15 @@ function showToDoDetails(id, listID=0) {
     // Add the properties and the buttons
     divDetails.append(buttonsContainer);
     document.getElementById(`${id.toString()}`).append(divDetails);
+}
+
+
+function toggleDetails(id) {
+    if (document.getElementById(`details-${id}`)) {
+        document.getElementById(`details-${id}`).remove();
+    } else {
+        showToDoDetails(id);
+    }
 }
 
 
