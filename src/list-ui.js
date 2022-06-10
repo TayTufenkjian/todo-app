@@ -34,7 +34,8 @@ function listenForAddNewList() {
 function showLists() {
     clearPageContent();
     let header = createPageHeader('Your Lists');
-    let contents = document.createElement('ul');
+    let unorderedList = document.createElement('ul');
+    unorderedList.classList.add('lists');
 
     // Skip the default list when displaying the user's lists
     let userLists = getLists().slice(1);
@@ -45,10 +46,10 @@ function showLists() {
         listElement.addEventListener('click', () => {
             showListItems(list.id);
         });
-        contents.append(listElement);
+        unorderedList.append(listElement);
     }
 
-    main.append(header, contents);
+    main.append(header, unorderedList);
 }
 
 

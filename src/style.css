@@ -1,8 +1,4 @@
-.todos li {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    margin-bottom: 1rem;
-}
+
 
 body {
     display: grid;
@@ -36,12 +32,18 @@ li {
     list-style: none;
 }
 
+.lists li {
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
 main > * {
     margin-bottom: 1rem;
 }
 
 nav {
-    background: rgb(161, 161, 255);
+    background: rgb(187, 187, 251);
     padding: 1rem;
 }
 
@@ -50,6 +52,17 @@ nav ul {
     display: grid;
     gap: 1rem;
     margin-top: 1rem;
+}
+
+.todos li {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+}
+
+.todos li:hover {
+    background: #e5e5e5;
 }
 
 ul {
