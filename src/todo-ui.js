@@ -80,7 +80,7 @@ function showEditToDoForm(id) {
 
     // Insert the form just below the relevant todo item
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
-    document.querySelector('.todos').insertBefore(form, document.getElementById(`item-${id + 1}`));
+    document.querySelector('.todos').insertBefore(form, document.getElementById(`${id + 1}`));
 
     // Pre-fill form fields with any existing values
     let toDo = getToDo(id);
@@ -98,7 +98,7 @@ function showToDos(arrToDos, listID=0) {
     
     for (let item of arrToDos) {
         let todoElement = document.createElement('li');
-        todoElement.id = `item-${item.id}`;
+        todoElement.id = `${item.id}`;
 
         if (item.done) {
             todoElement.classList.add('done');
@@ -110,9 +110,9 @@ function showToDos(arrToDos, listID=0) {
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
 
-        let editFunction = () => {
-            showEditToDoForm(item.id);
-        }
+        todoElement.addEventListener('click', () => {
+            showToDoDetails(item.id);
+        });
 
         let markDoneFunction = () => {
             markDone(item.id);
@@ -132,11 +132,11 @@ function showToDos(arrToDos, listID=0) {
             }
         }
 
-        let btnEditDiv = createButtonInDiv('Edit', editFunction);
-        let btnDoneDiv = createButtonInDiv('Mark done', markDoneFunction);
-        let btnDeleteDiv = createButtonInDiv('Delete', deleteFunction);
         
-        todoElement.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
+        // let btnDoneDiv = createButtonInDiv('Mark done', markDoneFunction);
+        // let btnDeleteDiv = createButtonInDiv('Delete', deleteFunction);
+        
+        todoElement.append(titleDiv, dueDateDiv);
         unorderedList.append(todoElement);
     }
     return unorderedList;
@@ -161,6 +161,43 @@ function listenForShowToDos() {
     document.getElementById('show-todos').addEventListener('click', () => {
         showAllToDos();
     });
+}
+
+
+function showToDoDetails(id) {
+    let divDetails = document.createElement('div');
+    divDetails.classList.add('todo-details');
+
+    let toDo = getToDo(id);
+    let propertiesToShow = [
+        {'Priority': toDo.priority},
+        {'Description': toDo.Description}
+    ]
+
+    propertiesToShow.forEach(property => {
+        for (let key in property) {     
+            let divContainer = document.createElement('div');
+            divContainer.classList.add('todo-property');
+            let propertyName = document.createElement('div');
+            propertyName.classList.add('detail-name');
+            propertyName.textContent = key;
+            let propertyValue = document.createElement('div');
+            propertyValue.classList.add('detail-value');
+            propertyValue.textContent = `${property[key]}`;
+          
+            divContainer.append(propertyName, propertyValue);
+            divDetails.append(divContainer);
+        }
+    })
+
+    let editFunction = () => {
+        showEditToDoForm(item.id);
+    }
+    let btnEditDiv = createButtonInDiv('Edit', editFunction);
+    btnEditDiv.classList.add('edit-button');
+
+    divDetails.append(btnEditDiv);
+    document.getElementById(`${id.toString()}`).append(divDetails);
 }
 
 
