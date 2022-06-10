@@ -22,7 +22,7 @@ body, button, input[type="date"] {
     margin-bottom: 1rem;
 }
 
-.form-field, .todo-details div {
+.form-field, .todo-property {
     display: grid;
     grid-template-columns: 200px 200px;
     margin-bottom: 1rem;
@@ -52,6 +52,10 @@ nav ul {
     display: grid;
     gap: 1rem;
     margin-top: 1rem;
+}
+
+.options button {
+    margin-right: 1rem;
 }
 
 .todos li {

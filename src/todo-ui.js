@@ -1,4 +1,4 @@
-import {createFormInput, createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
+import {createFormInput, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
 import {getToDos, getToDo, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
 import {showListItems} from './list-ui.js';
 
@@ -114,28 +114,6 @@ function showToDos(arrToDos, listID=0) {
             showToDoDetails(item.id);
         });
 
-        let markDoneFunction = () => {
-            markDone(item.id);
-            if (listID === 0) {
-                showAllToDos();
-            } else {
-                showListItems(listID);
-            }
-        }
-
-        let deleteFunction = () => {
-            deleteToDo(item.id);
-            if (listID === 0) {
-                showAllToDos();
-            } else {
-                showListItems(listID);
-            }
-        }
-
-        
-        // let btnDoneDiv = createButtonInDiv('Mark done', markDoneFunction);
-        // let btnDeleteDiv = createButtonInDiv('Delete', deleteFunction);
-        
         todoElement.append(titleDiv, dueDateDiv);
         unorderedList.append(todoElement);
     }
@@ -164,10 +142,11 @@ function listenForShowToDos() {
 }
 
 
-function showToDoDetails(id) {
+function showToDoDetails(id, listID=0) {
     let divDetails = document.createElement('div');
     divDetails.classList.add('todo-details');
 
+    // Get the additional properties of the todo item
     let toDo = getToDo(id);
     let propertiesToShow = [
         {'Priority': toDo.priority},
@@ -190,13 +169,42 @@ function showToDoDetails(id) {
         }
     })
 
+    // Create the action buttons for edit, mark done, and delete
     let editFunction = () => {
         showEditToDoForm(item.id);
     }
-    let btnEditDiv = createButtonInDiv('Edit', editFunction);
-    btnEditDiv.classList.add('edit-button');
 
-    divDetails.append(btnEditDiv);
+    // This is going to move but not sure where to put it yet
+    // let markDoneFunction = () => {
+    //     markDone(item.id);
+    //     if (listID === 0) {
+    //         showAllToDos();
+    //     } else {
+    //         showListItems(listID);
+    //     }
+    // }
+
+    let deleteFunction = () => {
+        deleteToDo(item.id);
+        if (listID === 0) {
+            showAllToDos();
+        } else {
+            showListItems(listID);
+        }
+    }
+
+    let btnEdit = createButton('Edit', editFunction);
+    btnEdit.classList.add('edit');
+
+    let btnDelete = createButton('Delete', deleteFunction);
+    btnDelete.classList.add('delete');
+    
+    let buttonsContainer = document.createElement('div');
+    buttonsContainer.classList.add('options');    
+    buttonsContainer.append(btnEdit, btnDelete);
+
+    // Add the properties and the buttons
+    divDetails.append(buttonsContainer);
     document.getElementById(`${id.toString()}`).append(divDetails);
 }
 

@@ -19,13 +19,18 @@ function createFormInput(type, id, name, labelText) {
     return div;
 }
 
-function createButtonInDiv(text, functionOnClick) {
-    let div = document.createElement('div');
+function createButton(text, functionOnClick) {
     let btn = document.createElement('button');
     btn.textContent = text;
     btn.addEventListener('click', () => {     
         functionOnClick();
     });
+    return btn;
+}
+
+function createButtonInDiv(text, functionOnClick) {
+    let div = document.createElement('div');
+    let btn = createButton(text, functionOnClick);
     div.append(btn);
     return div;
 }
@@ -41,4 +46,4 @@ function createPageHeader(text) {
     return header;
 }
 
-export {createFormInput, createButtonInDiv, clearPageContent, createPageHeader};
+export {createFormInput, createButton, createButtonInDiv, clearPageContent, createPageHeader};
