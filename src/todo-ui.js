@@ -135,9 +135,10 @@ function showAllToDos() {
     let allToDos = getToDos();
     let allToDosDiv = showToDos(allToDos);
 
-    let btn = createButtonInDiv('Add new', showAddToDoForm);
+    let btnDiv = createButtonInDiv('Add new', showAddToDoForm);
+    btnDiv.classList.add('add-new');
 
-    document.querySelector('main').append(allToDosDiv, btn);
+    document.querySelector('main').append(allToDosDiv, btnDiv);
 }
 
 
