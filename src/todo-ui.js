@@ -65,7 +65,16 @@ function showEditToDoForm(id) {
 
         editToDo(id, title, dueDate, priority, description);
         form.remove();
-        showAllToDos();
+
+        // If editing from a list page, reload that list
+        // Otherwise, reload all todos
+        let header = document.querySelector('h1');
+        if (header.id === '') {
+            showAllToDos();
+        } else {
+            showListItems(parseInt(header.id));
+        }
+
     });
 
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);

@@ -64,6 +64,7 @@ function showListItems(listID) {
 
     let listName = getListName(listID);
     let header = createPageHeader(listName);
+    header.id = listID;
 
     let listItems = getListItems(listID);
     let listItemsDiv = showToDos(listItems);    
