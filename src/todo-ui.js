@@ -78,9 +78,12 @@ function showEditToDoForm(id) {
         }
     });
 
-    // Insert the form just below the relevant todo item
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
-    document.querySelector('.todos').insertBefore(form, document.getElementById(`${id + 1}`));
+
+    // Remove the todo details and show the form in its place
+    document.getElementById(`details-${id}`).remove();
+    document.getElementById(`${id}`).append(form);
+    
 
     // Pre-fill form fields with any existing values
     let toDo = getToDo(id);
@@ -175,7 +178,7 @@ function showToDoDetails(id, listID=0) {
 
     // Create the action buttons for edit, mark done, and delete
     let editFunction = () => {
-        showEditToDoForm(item.id);
+        showEditToDoForm(id);
     }
 
     // This is going to move but not sure where to put it yet
@@ -189,7 +192,7 @@ function showToDoDetails(id, listID=0) {
     // }
 
     let deleteFunction = () => {
-        deleteToDo(item.id);
+        deleteToDo(id);
         if (listID === 0) {
             showAllToDos();
         } else {
