@@ -150,7 +150,7 @@ function showToDoDetails(id, listID=0) {
     let toDo = getToDo(id);
     let propertiesToShow = [
         {'Priority': toDo.priority},
-        {'Description': toDo.Description}
+        {'Description': toDo.description}
     ]
 
     propertiesToShow.forEach(property => {
