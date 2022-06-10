@@ -67,9 +67,12 @@ function showListItems(listID) {
     header.id = listID;
 
     let listItems = getListItems(listID);
-    let listItemsDiv = showToDos(listItems);    
+    let listItemsDiv = showToDos(listItems, listID);    
 
-    let btn = createButtonInDiv('Add new', showAddToDoForm, listID, false);
+    let btnFunction = () => {
+        showAddToDoForm(listID);
+    }
+    let btn = createButtonInDiv('Add new', btnFunction);
 
     main.append(header, listItemsDiv, btn);
 }

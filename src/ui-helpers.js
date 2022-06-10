@@ -19,16 +19,12 @@ function createFormInput(type, id, name, labelText) {
     return div;
 }
 
-function createButtonInDiv(text, functionToRun, arg, reloadToDos) {
+function createButtonInDiv(text, functionOnClick) {
     let div = document.createElement('div');
     let btn = document.createElement('button');
     btn.textContent = text;
     btn.addEventListener('click', () => {     
-        functionToRun(arg);   
-
-        if (reloadToDos) { 
-            showAllToDos();
-        }
+        functionOnClick();
     });
     div.append(btn);
     return div;

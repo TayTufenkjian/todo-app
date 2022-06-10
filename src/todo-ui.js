@@ -3,7 +3,7 @@ import {getToDos, getToDo, addToDo, editToDo, markDone, deleteToDo} from './todo
 import {showListItems} from './list-ui.js';
 
 
-function showAddToDoForm(list=0) {
+function showAddToDoForm(listID=0) {
     let form = document.createElement('form');
     form.id = 'add-new';
 
@@ -20,13 +20,13 @@ function showAddToDoForm(list=0) {
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
         
-        addToDo(title, dueDate, priority, list);
+        addToDo(title, dueDate, priority, listID);
         form.remove();
 
-        if (list === 0) {
+        if (listID === 0) {
             showAllToDos();
         } else {
-            showListItems(list);
+            showListItems(listID);
         }
     })
 
@@ -66,15 +66,14 @@ function showEditToDoForm(id) {
         editToDo(id, title, dueDate, priority, description);
         form.remove();
 
-        // If editing from a list page, reload that list
-        // Otherwise, reload all todos
+        // If editing from the all todos page, reload all todo items
+        // Otherwise reload list items
         let header = document.querySelector('h1');
         if (header.id === '') {
             showAllToDos();
         } else {
             showListItems(parseInt(header.id));
         }
-
     });
 
     form.append(titleField, dueDateField, priorityField, descriptionField, btn);
@@ -89,7 +88,7 @@ function showEditToDoForm(id) {
 }
 
 
-function showToDos(arrToDos) {
+function showToDos(arrToDos, listID=0) {
     let div = document.createElement('div');
     div.classList.add('todos');
 
@@ -107,9 +106,31 @@ function showToDos(arrToDos) {
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
 
-        let btnEditDiv = createButtonInDiv('Edit', showEditToDoForm, item.id, false);
-        let btnDoneDiv = createButtonInDiv('Mark done', markDone, item.id, true);
-        let btnDeleteDiv = createButtonInDiv('Delete', deleteToDo, item.id, true);
+        let editFunction = () => {
+            showEditToDoForm(item.id);
+        }
+
+        let markDoneFunction = () => {
+            markDone(item.id);
+            if (listID === 0) {
+                showAllToDos();
+            } else {
+                showListItems(listID);
+            }
+        }
+
+        let deleteFunction = () => {
+            deleteToDo(item.id);
+            if (listID === 0) {
+                showAllToDos();
+            } else {
+                showListItems(listID);
+            }
+        }
+
+        let btnEditDiv = createButtonInDiv('Edit', editFunction);
+        let btnDoneDiv = createButtonInDiv('Mark done', markDoneFunction);
+        let btnDeleteDiv = createButtonInDiv('Delete', deleteFunction);
         
         itemDiv.append(titleDiv, dueDateDiv, btnEditDiv, btnDoneDiv, btnDeleteDiv);
         div.append(itemDiv);
@@ -121,13 +142,14 @@ function showToDos(arrToDos) {
 function showAllToDos() {
     clearPageContent();
     let header = createPageHeader('All To Dos');
+    document.querySelector('main').append(header);
 
     let allToDos = getToDos();
     let allToDosDiv = showToDos(allToDos);
 
-    let btn = createButtonInDiv('Add new', showAddToDoForm, 0, false);
+    let btn = createButtonInDiv('Add new', showAddToDoForm);
 
-    document.querySelector('main').append(header, allToDosDiv, btn);
+    document.querySelector('main').append(allToDosDiv, btn);
 }
 
 
