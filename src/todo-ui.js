@@ -116,7 +116,7 @@ function showToDos(arrToDos, listID=0) {
         let container = document.createElement('div');
         container.classList.add('summary');
         container.addEventListener('click', () => {
-            toggleDetails(item.id);
+            toggleDetails(item.id, listID);
         });
 
         container.append(titleDiv, dueDateDiv);
@@ -216,11 +216,11 @@ function showToDoDetails(id, listID=0) {
 }
 
 
-function toggleDetails(id) {
+function toggleDetails(id, listID) {
     if (document.getElementById(`details-${id}`)) {
         document.getElementById(`details-${id}`).remove();
     } else {
-        showToDoDetails(id);
+        showToDoDetails(id, listID);
     }
 }
 
