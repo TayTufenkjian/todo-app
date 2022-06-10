@@ -1,5 +1,5 @@
 import {createFormInput, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
-import {getToDos, getToDo, addToDo, editToDo, markDone, deleteToDo} from './todo.js';
+import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo} from './todo.js';
 import {showListItems} from './list-ui.js';
 
 
@@ -112,16 +112,30 @@ function showToDos(arrToDos, listID=0) {
 
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
-
-        let container = document.createElement('div');
-        container.classList.add('summary');
-        container.addEventListener('click', () => {
+        
+        let checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.addEventListener('change', function(element) {
+            // Toggle done status based on whether the checkbox is checked
+            if (checkbox.checked) {
+                setDone(item.id, true);
+                reloadItems();
+            } else {
+                setDone(item.id, false);
+                reloadItems();
+            }
+        })
+       
+        let summary = document.createElement('div');
+        summary.classList.add('summary');
+        summary.addEventListener('click', () => {
             toggleDetails(item.id, listID);
         });
 
-        container.append(titleDiv, dueDateDiv);
-        todoElement.append(container);
+        summary.append(titleDiv, dueDateDiv);
+        todoElement.append(checkbox, summary);
         unorderedList.append(todoElement);
+    
     }
     return unorderedList;
 }
@@ -182,16 +196,6 @@ function showToDoDetails(id, listID=0) {
         showEditToDoForm(id);
     }
 
-    // This is going to move but not sure where to put it yet
-    // let markDoneFunction = () => {
-    //     markDone(item.id);
-    //     if (listID === 0) {
-    //         showAllToDos();
-    //     } else {
-    //         showListItems(listID);
-    //     }
-    // }
-
     let deleteFunction = () => {
         deleteToDo(id);
         if (listID === 0) {
@@ -223,6 +227,18 @@ function toggleDetails(id, listID) {
     } else {
         showToDoDetails(id, listID);
     }
+}
+
+
+function reloadItems() {
+    //If editing from the all todos page, reload all todo items
+    //Otherwise reload list items
+    let header = document.querySelector('h1');
+    if (header.id === '') {
+        showAllToDos();
+    } else {
+        showListItems(parseInt(header.id));
+    }   
 }
 
 

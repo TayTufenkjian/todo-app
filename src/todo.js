@@ -50,11 +50,11 @@ function editToDo(id, title, dueDate, priority, description) {
 }
 
 
-function markDone(id) {
+function setDone(id, bool) {
     let toDos = getToDos();
     for (let item of toDos) {
         if (item.id === id) {
-            item.done = true;
+            item.done = bool;
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
@@ -72,4 +72,4 @@ function deleteToDo(id) {
 }
 
 
-export {getToDos, getToDo, toDoFactory, addToDo, editToDo, markDone, deleteToDo};
+export {getToDos, getToDo, toDoFactory, addToDo, editToDo, setDone, deleteToDo};
