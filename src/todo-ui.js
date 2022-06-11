@@ -102,6 +102,7 @@ function showToDos(arrToDos, listID=0) {
     for (let item of arrToDos) {
         let todoElement = document.createElement('li');
         todoElement.id = `${item.id}`;
+        todoElement.classList.add('collapsed');
 
         let titleDiv = document.createElement('div');
         titleDiv.textContent = `${item.title}`;
@@ -130,7 +131,7 @@ function showToDos(arrToDos, listID=0) {
        
         let summary = document.createElement('div');
         summary.classList.add('summary');
-        summary.addEventListener('click', () => {
+        summary.addEventListener('click', (event) => {
             toggleDetails(item.id, listID);
         });
 
@@ -223,23 +224,16 @@ function showToDoDetails(id, listID=0) {
 
 
 function toggleDetails(id, listID) {
+    let toDoElement = document.getElementById(`${id}`);
     if (document.getElementById(`details-${id}`)) {
         document.getElementById(`details-${id}`).remove();
+        toDoElement.classList.remove('active');
+        toDoElement.classList.add('collapsed');
     } else {
         showToDoDetails(id, listID);
+        toDoElement.classList.add('active');
+        toDoElement.classList.remove('collapsed');
     }
-}
-
-
-function reloadItems() {
-    //If editing from the all todos page, reload all todo items
-    //Otherwise reload list items
-    let header = document.querySelector('h1');
-    if (header.id === '') {
-        showAllToDos();
-    } else {
-        showListItems(parseInt(header.id));
-    }   
 }
 
 
