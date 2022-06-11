@@ -20,7 +20,14 @@ function getToDo(id) {
 
 
 function toDoFactory(title, dueDate, priority, list) {
-    const id = getToDos().length + 1;
+    // Calculate the ID based on the largest existing ID value
+    let toDos = getToDos();
+    let maxCurrentID = 0;
+    for (let toDo of toDos) {
+        if (toDo['id'] > maxCurrentID) maxCurrentID = toDo['id'];
+    }
+    const id = maxCurrentID + 1;
+   
     let done = false;
     let description = '';
     return {id, title, done, dueDate, priority, description, list};
