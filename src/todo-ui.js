@@ -1,4 +1,4 @@
-import {createFormInput, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
+import {createInput, createFormField, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
 import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo} from './todo.js';
 import {showListItems} from './list-ui.js';
 
@@ -7,9 +7,10 @@ function showAddToDoForm(listID=0) {
     let form = document.createElement('form');
     form.id = 'add-new';
 
-    let titleField = createFormInput('text', 'title', 'title', 'Title');
-    let dueDateField = createFormInput('date', 'due-date', 'due-date', 'Due');
-    let priorityField = createFormInput('number', 'priority', 'priority', 'Priority');
+    let titleField = createFormField('text', 'title', 'title', 'Title');
+    let dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
+
+    let priorityField = createFormField('number', 'priority', 'priority', 'Priority');
 
     let btn = document.createElement('button');
     btn.type = 'button';
@@ -41,9 +42,10 @@ function showEditToDoForm(id) {
     let form = document.createElement('form');
     form.classList.add('edit-todo');
 
-    let titleField = createFormInput('text', 'title', 'title', 'Title');
-    let dueDateField = createFormInput('date', 'due-date', 'due-date', 'Due');
-    let priorityField = createFormInput('number', 'priority', 'priority', 'Priority');
+    let titleInput = createInput('text', 'title', 'title');
+    let dueDateInput = createInput('date', 'due-date', 'due-date');
+
+    let priorityField = createFormField('number', 'priority', 'priority', 'Priority');
 
     let descriptionField = document.createElement('div');
     descriptionField.classList.add('form-field');
@@ -78,14 +80,22 @@ function showEditToDoForm(id) {
         }
     });
 
-    form.append(titleField, dueDateField, priorityField, descriptionField, btn);
+    // Replace the summary title and date with the relevant input elements
+    let todoElement = document.getElementById(`todo-${id}`);
+    let summary = document.querySelector(`#todo-${id} .summary`);
+    let summaryInputs = document.createElement('div');
+    summaryInputs.append(titleInput, dueDateInput);
+    todoElement.insertBefore(summaryInputs, summary);
+    summary.remove();
+
+    // Append the other fields and the button to the form
+    form.append(priorityField, descriptionField, btn);
 
     // Remove the todo details and show the form in its place
     document.getElementById(`details-${id}`).remove();
-    document.getElementById(`${id}`).append(form);
+    document.getElementById(`todo-${id}`).append(form);
     
-
-    // Pre-fill form fields with any existing values
+    // Pre-fill all input elements with any existing values
     let toDo = getToDo(id);
     document.getElementById('title').value = toDo.title;
     document.getElementById('due-date').value = toDo.dueDate;
@@ -101,13 +111,15 @@ function showToDos(arrToDos, listID=0) {
     
     for (let item of arrToDos) {
         let todoElement = document.createElement('li');
-        todoElement.id = `${item.id}`;
+        todoElement.id = `todo-${item.id}`;
         todoElement.classList.add('collapsed');
 
         let titleDiv = document.createElement('div');
+        titleDiv.classList.add('title');
         titleDiv.textContent = `${item.title}`;
 
         let dueDateDiv = document.createElement('div');
+        dueDateDiv.classList.add('due');
         dueDateDiv.textContent = `${item.dueDate}`;
 
         let checkbox = document.createElement('input');
@@ -219,12 +231,12 @@ function showToDoDetails(id, listID=0) {
 
     // Add the properties and the buttons
     divDetails.append(buttonsContainer);
-    document.getElementById(`${id.toString()}`).append(divDetails);
+    document.getElementById(`todo-${id}`).append(divDetails);
 }
 
 
 function toggleDetails(id, listID) {
-    let toDoElement = document.getElementById(`${id}`);
+    let toDoElement = document.getElementById(`todo-${id}`);
     if (document.getElementById(`details-${id}`)) {
         document.getElementById(`details-${id}`).remove();
         toDoElement.classList.remove('active');

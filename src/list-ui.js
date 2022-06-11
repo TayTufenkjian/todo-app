@@ -1,4 +1,4 @@
-import { createFormInput, clearPageContent, createPageHeader, createButtonInDiv} from './ui-helpers.js';
+import { createFormField, clearPageContent, createPageHeader, createButtonInDiv} from './ui-helpers.js';
 import { getLists, addList, getListItems, getListName } from './list.js';
 import { showAddToDoForm, showToDos } from './todo-ui.js'
 
@@ -10,7 +10,7 @@ function listenForAddNewList() {
         
         clearPageContent();
         let header = createPageHeader('Add New List');
-        let content = createFormInput('text', 'list-name', 'list-name', 'Name of list');
+        let content = createFormField('text', 'list-name', 'list-name', 'Name of list');
         
         main.append(header, content);
 
