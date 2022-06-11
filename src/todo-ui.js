@@ -103,28 +103,30 @@ function showToDos(arrToDos, listID=0) {
         let todoElement = document.createElement('li');
         todoElement.id = `${item.id}`;
 
-        if (item.done) {
-            todoElement.classList.add('done');
-        }
-
         let titleDiv = document.createElement('div');
         titleDiv.textContent = `${item.title}`;
 
         let dueDateDiv = document.createElement('div');
         dueDateDiv.textContent = `${item.dueDate}`;
-        
+
         let checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.addEventListener('change', function(element) {
-            // Toggle done status based on whether the checkbox is checked
-            if (checkbox.checked) {
-                setDone(item.id, true);
-                reloadItems();
+
+        // If the todo item is done, check the box and add strikethrough styling
+        if (item.done) {
+            checkbox.checked = true;
+            todoElement.classList.add('done');
+        }
+
+        // Listen for a click on the checkbox to toggle the done state and strikethrough styling
+        checkbox.addEventListener('click', () => {
+            setDone(parseInt(item.id), checkbox.checked);
+            if (checkbox.checked === true) {
+                checkbox.parentElement.classList.add('done');
             } else {
-                setDone(item.id, false);
-                reloadItems();
+                checkbox.parentElement.classList.remove('done');
             }
-        })
+         });
        
         let summary = document.createElement('div');
         summary.classList.add('summary');
@@ -135,7 +137,6 @@ function showToDos(arrToDos, listID=0) {
         summary.append(titleDiv, dueDateDiv);
         todoElement.append(checkbox, summary);
         unorderedList.append(todoElement);
-    
     }
     return unorderedList;
 }
