@@ -67,7 +67,7 @@ nav ul {
     margin-top: 1rem;
 }
 
-.options button, #add-new-item button, .edit-todo button {
+.options button, #add-new-item input, .edit-todo button {
     margin-right: 1rem;
 }
 

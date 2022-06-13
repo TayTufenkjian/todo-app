@@ -11,15 +11,16 @@ function showAddToDoForm(listID=0) {
     let form = document.createElement('form');
     form.id = 'add-new-item';
 
-    let titleField = createFormField('text', 'title', 'title', 'Title');
+    let titleField = createFormField('text', 'title', 'title', 'Title', true);
     let dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
     let priorityField = createPriorityField('priority');
 
-    let btnAdd = document.createElement('button');
-    btnAdd.type = 'button';
+    let btnAdd = document.createElement('input');
+    btnAdd.type = 'submit';
     btnAdd.id = 'add-item';
-    btnAdd.textContent = 'Add item';
-    btnAdd.addEventListener('click', () => {
+    btnAdd.value = 'Add item';
+
+    form.onsubmit = () => {
         let title = document.getElementById('title').value;
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
@@ -34,7 +35,10 @@ function showAddToDoForm(listID=0) {
         } else {
             showListItems(listID);
         }
-    })
+
+        // Prevent the form from actually submitting
+        return false;
+    }
 
     let cancelFunction = () => document.getElementById('add-new-item').remove();
     let btnCancel = createButton('Cancel', cancelFunction);

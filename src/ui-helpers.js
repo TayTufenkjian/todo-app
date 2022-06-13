@@ -2,15 +2,16 @@ import {showAllToDos} from './todo-ui.js';
 
 // Helper functions for creating HTML elements
 
-function createInput(type, id, name) {
+function createInput(type, id, name, required=false) {
     let input = document.createElement('input');
     input.type = type;
     input.id = id;
     input.name = name;
+    input.required = required;
     return input;
 }
 
-function createFormField(type, id, name, labelText) {
+function createFormField(type, id, name, labelText, required=false) {
     let div = document.createElement('div');
     div.classList.add('form-field');
     
@@ -18,7 +19,7 @@ function createFormField(type, id, name, labelText) {
     label.setAttribute('for', id);
     label.textContent = labelText;
 
-    let input = createInput(type, id, name);
+    let input = createInput(type, id, name, required);
 
     div.append(label, input);   
     return div;
