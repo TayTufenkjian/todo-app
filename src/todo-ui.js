@@ -1,8 +1,11 @@
 import {createInput, createFormField, createPriorityField,createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
-import {getToDos, getToDosSortedByDate, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
+import {getToDosSortedByDate, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
 import {showListItems} from './list-ui.js';
 import {getLists, getListName} from './list.js';
-
+import highPriorityIcon from './img/icon-high-priority.svg';
+import mediumPriorityIcon from './img/icon-medium-priority.svg';
+import lowPriorityIcon from './img/icon-low-priority.svg';
+ 
 
 function showAddToDoForm(listID=0) {
     // Check if the add-new-item form is already on the page
@@ -183,6 +186,22 @@ function showToDos(arrToDos, listID=0) {
                 checkbox.parentElement.classList.remove('done');
             }
          });
+
+        // Display icon based on priority level
+        let priorityIndicator = document.createElement('img');
+        switch (item.priority) {
+            case 'high':
+                priorityIndicator.src = highPriorityIcon;
+                break;
+            case 'medium':
+                priorityIndicator.src = mediumPriorityIcon;
+                break;
+            case 'low':
+                priorityIndicator.src = lowPriorityIcon;
+                break;
+            default:
+                console.log('Woops. Something went wrong');
+        }
        
         let summary = document.createElement('div');
         summary.classList.add('summary');
@@ -191,7 +210,7 @@ function showToDos(arrToDos, listID=0) {
         });
 
         summary.append(titleDiv, dueDateDiv);
-        todoElement.append(checkbox, summary);
+        todoElement.append(checkbox, summary, priorityIndicator);
         unorderedList.append(todoElement);
     }
     return unorderedList;

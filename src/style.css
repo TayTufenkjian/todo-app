@@ -1,6 +1,6 @@
 body {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: min(30%,10rem) 1fr;
     height: 100vh;
     margin: 0;
 }
@@ -80,7 +80,7 @@ nav ul {
 .todos li {
     align-items: center;
     display: grid;
-    grid-template-columns: 30px 1fr;
+    grid-template-columns: 1.75rem 20rem 2rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
