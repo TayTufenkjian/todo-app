@@ -103,7 +103,13 @@ nav ul {
     padding-bottom: 1rem;
 }
 
+.todo-details .list .clickable {
+    cursor: pointer;
+    color: blue;
+}
+
 ul {
     margin: 0;
     padding: 0;
 }
+

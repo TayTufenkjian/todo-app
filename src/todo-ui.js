@@ -216,13 +216,18 @@ function showToDoDetails(id, listID=0) {
     propertiesToShow.forEach(property => {
         for (let key in property) {     
             let divContainer = document.createElement('div');
-            divContainer.classList.add('todo-property');
+            divContainer.classList.add('todo-property', `${key.toLowerCase()}`);
             let propertyName = document.createElement('div');
             propertyName.classList.add('detail-name');
             propertyName.textContent = key;
             let propertyValue = document.createElement('div');
             propertyValue.classList.add('detail-value');
             propertyValue.textContent = `${property[key]}`;
+
+            // Add an extra class for a clickable list name
+            if (key === 'List' && toDo.list) {
+                propertyValue.classList.add('clickable');
+            }
           
             divContainer.append(propertyName, propertyValue);
             divDetails.append(divContainer);
@@ -253,9 +258,16 @@ function showToDoDetails(id, listID=0) {
     buttonsContainer.classList.add('options');    
     buttonsContainer.append(btnEdit, btnDelete);
 
-    // Add the properties and the buttons
+    // Add the properties and the buttons to the page
     divDetails.append(buttonsContainer);
     document.getElementById(`todo-${id}`).append(divDetails);
+
+    // Listen for a click on the list name
+    document.querySelector(`#details-${id} .list`).addEventListener('click', () => {
+        if (toDo.list) {
+            showListItems(toDo.list);
+        }
+    });
 }
 
 
