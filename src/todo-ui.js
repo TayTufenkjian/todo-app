@@ -36,7 +36,7 @@ function showAddToDoForm(listID=0) {
         }
     })
 
-    let cancelFunction = () => document.querySelector('form.add-new').remove();
+    let cancelFunction = () => document.getElementById('add-new-item').remove();
     let btnCancel = createButton('Cancel', cancelFunction);
 
     form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
@@ -115,15 +115,8 @@ function showEditToDoForm(id) {
     todoElement.insertBefore(summaryInputs, summary);
     summary.remove();
 
-    // Create the Cancel button
-    let cancelFunction = () => {
-        document.querySelector(`todo-${id} form.edit-todo`).remove();
-        document.querySelector(`todo-${id} .summary-inputs`).remove();
-    }
-    let btnCancel = createButton('Cancel', cancelFunction);
-
     // Append the other fields and the button to the form
-    form.append(priorityField, descriptionField, listField, btnSave, btnCancel);
+    form.append(priorityField, descriptionField, listField, btnSave);
 
     // Remove the todo details and show the form in its place
     document.getElementById(`details-${id}`).remove();
@@ -136,6 +129,16 @@ function showEditToDoForm(id) {
     document.getElementById(`priority-${id}`).value = toDo.priority;
     document.getElementById(`description-${id}`).value = toDo.description;
     document.getElementById(`list-${id}`).value = `${toDo.list}`;
+
+    // Create and append the Cancel button
+    let cancelFunction = () => {
+        document.querySelector(`#todo-${id} .edit-todo`).remove();
+        document.querySelector(`#todo-${id} .summary-inputs`).remove();
+        document.querySelector(`#todo-${id}`).append(summary);
+        showToDoDetails(id, toDo.list);
+    }
+    let btnCancel = createButton('Cancel', cancelFunction);
+    form.append(btnCancel);
 }
 
 

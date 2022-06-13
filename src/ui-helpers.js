@@ -47,6 +47,7 @@ function createPriorityField(fieldID) {
 function createButton(text, functionOnClick) {
     let btn = document.createElement('button');
     btn.textContent = text;
+    btn.type = 'button';
     btn.addEventListener('click', () => {     
         functionOnClick();
     });
