@@ -97,6 +97,10 @@ function deleteToDo(id) {
 
 
 function getMonthAndDay(dateText) {
+    if (dateText === '') {
+        return {month: '', day: ''}
+    }
+
     let monthChart = {
         '01': 'Jan',
         '02': 'Feb',
