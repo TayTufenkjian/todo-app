@@ -34,13 +34,8 @@ function showAddToDoForm(listID=0) {
         }
     })
 
-    let btnCancel = document.createElement('button');
-    btnCancel.type = 'button';
-    btnCancel.id = 'cancel-item';
-    btnCancel.textContent = 'Cancel';
-    btnCancel.addEventListener('click', () => {
-        document.querySelector('form.add-new').remove();
-    });
+    let cancelFunction = () => document.querySelector('form.add-new').remove();
+    let btnCancel = createButton('Cancel', cancelFunction);
 
     form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
     document.querySelector('main').append(form);
