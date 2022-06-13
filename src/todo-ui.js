@@ -5,8 +5,11 @@ import {getLists, getListName} from './list.js';
 
 
 function showAddToDoForm(listID=0) {
+    // Check if the add-new-item form is already on the page
+    if (document.getElementById('add-new-item')) {return}
+
     let form = document.createElement('form');
-    form.classList.add('add-new');
+    form.id = 'add-new-item';
 
     let titleField = createFormField('text', 'title', 'title', 'Title');
     let dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
