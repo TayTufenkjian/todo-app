@@ -1,7 +1,7 @@
 import {createInput, createFormField, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
 import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo} from './todo.js';
 import {showListItems} from './list-ui.js';
-import {getLists} from './list.js';
+import {getLists, getListName} from './list.js';
 
 
 function showAddToDoForm(listID=0) {
@@ -72,7 +72,7 @@ function showEditToDoForm(id) {
     for (let list of lists) {
         let listOption = document.createElement('option');
         listOption.value = list.id;
-        listOption.textContent = list.name;
+        listOption.textContent = getListName(list.id);
         listSelect.append(listOption);
     }
     listField.append(listLabel, listSelect);
@@ -209,7 +209,8 @@ function showToDoDetails(id, listID=0) {
     let toDo = getToDo(id);
     let propertiesToShow = [
         {'Priority': toDo.priority},
-        {'Description': toDo.description}
+        {'Description': toDo.description},
+        {'List': getListName(toDo.list)}
     ]
 
     propertiesToShow.forEach(property => {
@@ -228,7 +229,7 @@ function showToDoDetails(id, listID=0) {
         }
     })
 
-    // Create the action buttons for edit, mark done, and delete
+    // Create the action buttons for edit and delete
     let editFunction = () => {
         showEditToDoForm(id);
     }

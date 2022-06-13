@@ -41,7 +41,7 @@ function getListName(listID) {
     let lists = getLists();
     for (let list of lists) {
         if (list.id === listID) {
-            return list.name;
+            return list.id ? list.name : '(none)';
         }
     }
 }
