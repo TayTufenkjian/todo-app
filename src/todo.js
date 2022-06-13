@@ -80,4 +80,27 @@ function deleteToDo(id) {
 }
 
 
-export {getToDos, getToDo, toDoFactory, addToDo, editToDo, setDone, deleteToDo};
+function getMonthAndDay(dateText) {
+    let monthChart = {
+        '01': 'Jan',
+        '02': 'Feb',
+        '03': 'Mar',
+        '04': 'Apr',
+        '05': 'May',
+        '06': 'Jun',
+        '07': 'Jul',
+        '08': 'Aug',
+        '09': 'Sep',
+        '10': 'Oct',
+        '11': 'Nov',
+        '12': 'Dec'
+    }
+
+    let month = monthChart[dateText.substring(5, 7)];
+    let day = dateText.substring(8, 10);
+
+    return{month, day};
+}
+
+
+export {getToDos, getToDo, toDoFactory, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay};

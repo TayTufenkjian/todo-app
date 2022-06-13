@@ -71,6 +71,10 @@ nav ul {
     margin-right: 1rem;
 }
 
+.summary .due {
+    text-align: right;
+}
+
 .todos .summary, .todos .summary-inputs {
     display: grid;
     grid-template-columns: 200px 100px;

@@ -1,5 +1,5 @@
 import {createInput, createFormField, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
-import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo} from './todo.js';
+import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
 import {showListItems} from './list-ui.js';
 import {getLists, getListName} from './list.js';
 
@@ -143,7 +143,8 @@ function showToDos(arrToDos, listID=0) {
 
         let dueDateDiv = document.createElement('div');
         dueDateDiv.classList.add('due');
-        dueDateDiv.textContent = `${item.dueDate}`;
+        let displayDate = getMonthAndDay(item.dueDate);
+        dueDateDiv.textContent = `${displayDate.month} ${displayDate.day}`;
 
         let checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
