@@ -251,11 +251,14 @@ function showToDoDetails(id, listID=0) {
     }
 
     let deleteFunction = () => {
-        deleteToDo(id);
-        if (listID === 0) {
-            showAllToDos();
-        } else {
-            showListItems(listID);
+        let confirmDelete = confirm('Do you really want to delete this to-do item?');
+        if (confirmDelete) {
+            deleteToDo(id);
+            if (listID === 0) {
+                showAllToDos();
+            } else {
+                showListItems(listID);
+            }
         }
     }
 
