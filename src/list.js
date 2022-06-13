@@ -1,4 +1,4 @@
-import {getToDos} from './todo.js';
+import {getToDosSortedByDate} from './todo.js';
 
 // Logic for handling lists and their todo items
 
@@ -26,7 +26,7 @@ function addList(name) {
 
 
 function getListItems(listID) {
-    let toDos = getToDos();
+    let toDos = getToDosSortedByDate();
     let listItems = [];
     for (let item of toDos) {
         if (item.list === listID) {

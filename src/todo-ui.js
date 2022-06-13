@@ -1,5 +1,5 @@
 import {createInput, createFormField, createPriorityField,createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
-import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
+import {getToDos, getToDosSortedByDate, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
 import {showListItems} from './list-ui.js';
 import {getLists, getListName} from './list.js';
 
@@ -193,7 +193,7 @@ function showAllToDos() {
     let header = createPageHeader('All To Dos');
     document.querySelector('main').append(header);
 
-    let allToDos = getToDos();
+    let allToDos = getToDosSortedByDate();
     let allToDosDiv = showToDos(allToDos);
 
     let btnDiv = createButtonInDiv('Add new', showAddToDoForm);

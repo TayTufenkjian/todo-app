@@ -9,6 +9,22 @@ function getToDos() {
 }
 
 
+function getToDosSortedByDate() {
+    if (localStorage.getItem('toDos') === null) {
+        let toDos = [];
+        localStorage.setItem('toDos', JSON.stringify(toDos));
+    } 
+    let toDos = JSON.parse(localStorage.getItem('toDos'));
+    return toDos.sort(compare);
+
+    function compare(a, b) {
+        if (a.dueDate < b.dueDate) return -1;
+        if (a.dueDate > b.dueDate) return 1;
+        return 0;
+    }
+}
+
+
 function getToDo(id) {
     let toDos = getToDos();
     for (let item of toDos) {
@@ -103,4 +119,4 @@ function getMonthAndDay(dateText) {
 }
 
 
-export {getToDos, getToDo, toDoFactory, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay};
+export {getToDos, getToDosSortedByDate, getToDo, toDoFactory, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay};
