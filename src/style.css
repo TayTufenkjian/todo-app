@@ -67,7 +67,7 @@ nav ul {
     margin-top: 1rem;
 }
 
-.options button {
+.options button, form.add-new button {
     margin-right: 1rem;
 }
 

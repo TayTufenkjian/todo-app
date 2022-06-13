@@ -13,11 +13,11 @@ function showAddToDoForm(listID=0) {
 
     let priorityField = createFormField('number', 'priority', 'priority', 'Priority');
 
-    let btn = document.createElement('button');
-    btn.type = 'button';
-    btn.id = 'add-item';
-    btn.textContent = 'Add item';
-    btn.addEventListener('click', () => {
+    let btnAdd = document.createElement('button');
+    btnAdd.type = 'button';
+    btnAdd.id = 'add-item';
+    btnAdd.textContent = 'Add item';
+    btnAdd.addEventListener('click', () => {
         let title = document.getElementById('title').value;
         let dueDate = document.getElementById('due-date').value;
         let priority = document.getElementById('priority').value;
@@ -34,7 +34,15 @@ function showAddToDoForm(listID=0) {
         }
     })
 
-    form.append(titleField, dueDateField, priorityField, btn);
+    let btnCancel = document.createElement('button');
+    btnCancel.type = 'button';
+    btnCancel.id = 'cancel-item';
+    btnCancel.textContent = 'Cancel';
+    btnCancel.addEventListener('click', () => {
+        document.querySelector('form.add-new').remove();
+    });
+
+    form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
     document.querySelector('main').append(form);
 }
 
