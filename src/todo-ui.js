@@ -80,11 +80,11 @@ function showEditToDoForm(id) {
     }
     listField.append(listLabel, listSelect);
    
-    let btn = document.createElement('button');
-    btn.type = 'button';
-    btn.class = 'edit-item';
-    btn.textContent = 'Save';
-    btn.addEventListener('click', () => {
+    let btnSave = document.createElement('button');
+    btnSave.type = 'button';
+    btnSave.class = 'edit-item';
+    btnSave.textContent = 'Save';
+    btnSave.addEventListener('click', () => {
         let title = document.getElementById(`title-${id}`).value;
         let dueDate = document.getElementById(`due-date-${id}`).value;
         let priority = document.getElementById(`priority-${id}`).value;
@@ -113,8 +113,15 @@ function showEditToDoForm(id) {
     todoElement.insertBefore(summaryInputs, summary);
     summary.remove();
 
+    // Create the Cancel button
+    let cancelFunction = () => {
+        document.querySelector(`todo-${id} form.edit-todo`).remove();
+        document.querySelector(`todo-${id} .summary-inputs`).remove();
+    }
+    let btnCancel = createButton('Cancel', cancelFunction);
+
     // Append the other fields and the button to the form
-    form.append(priorityField, descriptionField, listField, btn);
+    form.append(priorityField, descriptionField, listField, btnSave, btnCancel);
 
     // Remove the todo details and show the form in its place
     document.getElementById(`details-${id}`).remove();
