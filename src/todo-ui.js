@@ -1,6 +1,7 @@
 import {createInput, createFormField, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
 import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo} from './todo.js';
 import {showListItems} from './list-ui.js';
+import {getLists} from './list.js';
 
 
 function showAddToDoForm(listID=0) {
@@ -42,34 +43,52 @@ function showEditToDoForm(id) {
     let form = document.createElement('form');
     form.classList.add('edit-todo');
 
-    let titleInput = createInput('text', 'title', 'title');
+    let titleInput = createInput('text', `title-${id}`, 'title');
     titleInput.classList.add('title');
-    
-    let dueDateInput = createInput('date', 'due-date', 'due-date');
 
-    let priorityField = createFormField('number', 'priority', 'priority', 'Priority');
+    let dueDateInput = createInput('date', `due-date-${id}`, 'due-date');
+
+    let priorityField = createFormField('number', `priority-${id}`, 'priority', 'Priority');
 
     let descriptionField = document.createElement('div');
     descriptionField.classList.add('form-field');
     let descriptionLabel = document.createElement('label')
-    descriptionLabel.setAttribute('for', 'description');
+    descriptionLabel.setAttribute('for', `description-${id}`);
     descriptionLabel.textContent = 'Description';
     let descriptionArea = document.createElement('textarea');
-    descriptionArea.id = 'description';
+    descriptionArea.id = `description-${id}`;
     descriptionArea.name = 'description';
     descriptionField.append(descriptionLabel, descriptionArea);
+
+    let listField = document.createElement('div');
+    listField.classList.add('form-field');
+    let listLabel = document.createElement('label');
+    listLabel.textContent = 'List';
+    listLabel.for = `list-${id}`;
+    let listSelect = document.createElement('select');
+    listSelect.name = 'list';
+    listSelect.id = `list-${id}`;
+    let lists = getLists();
+    for (let list of lists) {
+        let listOption = document.createElement('option');
+        listOption.value = list.id;
+        listOption.textContent = list.name;
+        listSelect.append(listOption);
+    }
+    listField.append(listLabel, listSelect);
    
     let btn = document.createElement('button');
     btn.type = 'button';
     btn.class = 'edit-item';
     btn.textContent = 'Save';
     btn.addEventListener('click', () => {
-        let title = document.getElementById('title').value;
-        let dueDate = document.getElementById('due-date').value;
-        let priority = document.getElementById('priority').value;
-        let description = document.getElementById('description').value;
+        let title = document.getElementById(`title-${id}`).value;
+        let dueDate = document.getElementById(`due-date-${id}`).value;
+        let priority = document.getElementById(`priority-${id}`).value;
+        let description = document.getElementById(`description-${id}`).value;
+        let list = parseInt(document.getElementById(`list-${id}`).value);
 
-        editToDo(id, title, dueDate, priority, description);
+        editToDo(id, title, dueDate, priority, description, list);
         form.remove();
 
         // If editing from the all todos page, reload all todo items
@@ -92,7 +111,7 @@ function showEditToDoForm(id) {
     summary.remove();
 
     // Append the other fields and the button to the form
-    form.append(priorityField, descriptionField, btn);
+    form.append(priorityField, descriptionField, listField, btn);
 
     // Remove the todo details and show the form in its place
     document.getElementById(`details-${id}`).remove();
@@ -100,10 +119,11 @@ function showEditToDoForm(id) {
     
     // Pre-fill all input elements with any existing values
     let toDo = getToDo(id);
-    document.getElementById('title').value = toDo.title;
-    document.getElementById('due-date').value = toDo.dueDate;
-    document.getElementById('priority').value = toDo.priority;
-    document.getElementById('description').value = toDo.description;
+    document.getElementById(`title-${id}`).value = toDo.title;
+    document.getElementById(`due-date-${id}`).value = toDo.dueDate;
+    document.getElementById(`priority-${id}`).value = toDo.priority;
+    document.getElementById(`description-${id}`).value = toDo.description;
+    document.getElementById(`list-${id}`).value = `${toDo.list}`;
 }
 
 

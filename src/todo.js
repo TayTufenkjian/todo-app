@@ -43,7 +43,7 @@ function addToDo(title, dueDate, priority, list=0) {
 }
 
 
-function editToDo(id, title, dueDate, priority, description) {
+function editToDo(id, title, dueDate, priority, description, list) {
     let toDos = getToDos();
     for (let item of toDos) {
         if (item.id === id) {
@@ -51,6 +51,7 @@ function editToDo(id, title, dueDate, priority, description) {
             item.dueDate = dueDate;
             item.priority = priority;
             item.description = description;
+            item.list = list;
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
