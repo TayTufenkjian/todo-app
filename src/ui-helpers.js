@@ -24,6 +24,26 @@ function createFormField(type, id, name, labelText) {
     return div;
 }
 
+function createPriorityField(fieldID) {
+    let priorityField = document.createElement('div');
+    priorityField.classList.add('form-field');
+    let priorityLabel = document.createElement('label');
+    priorityLabel .textContent = 'Priority';
+    priorityLabel.for = fieldID;
+    let prioritySelect = document.createElement('select');
+    prioritySelect.id = fieldID;
+    let priorityLevels = ['low', 'medium', 'high'];
+    for (let level of priorityLevels) {
+        let priorityOption = document.createElement('option');
+        priorityOption.value = level;
+        priorityOption.textContent = level;
+        prioritySelect.append(priorityOption);
+    }
+    priorityField.append(priorityLabel, prioritySelect);
+    return priorityField;
+}
+
+
 function createButton(text, functionOnClick) {
     let btn = document.createElement('button');
     btn.textContent = text;
@@ -51,4 +71,4 @@ function createPageHeader(text) {
     return header;
 }
 
-export {createInput, createFormField, createButton, createButtonInDiv, clearPageContent, createPageHeader};
+export {createInput, createFormField, createPriorityField,createButton, createButtonInDiv, clearPageContent, createPageHeader};

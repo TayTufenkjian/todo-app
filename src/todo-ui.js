@@ -1,4 +1,4 @@
-import {createInput, createFormField, createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
+import {createInput, createFormField, createPriorityField,createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
 import {getToDos, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
 import {showListItems} from './list-ui.js';
 import {getLists, getListName} from './list.js';
@@ -10,8 +10,7 @@ function showAddToDoForm(listID=0) {
 
     let titleField = createFormField('text', 'title', 'title', 'Title');
     let dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
-
-    let priorityField = createFormField('number', 'priority', 'priority', 'Priority');
+    let priorityField = createPriorityField('priority');
 
     let btnAdd = document.createElement('button');
     btnAdd.type = 'button';
@@ -51,7 +50,7 @@ function showEditToDoForm(id) {
 
     let dueDateInput = createInput('date', `due-date-${id}`, 'due-date');
 
-    let priorityField = createFormField('number', `priority-${id}`, 'priority', 'Priority');
+    let priorityField = createPriorityField(`priority-${id}`);
 
     let descriptionField = document.createElement('div');
     descriptionField.classList.add('form-field');

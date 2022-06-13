@@ -35,7 +35,7 @@ function toDoFactory(title, dueDate, priority, list) {
 
 
 // Default list for a new todo item is the default list (id 0)
-function addToDo(title, dueDate, priority, list=0) {
+function addToDo(title, dueDate, priority='low', list=0) {
     let newToDo = toDoFactory(title, dueDate, priority, list);
     let toDos = getToDos();
     toDos.push(newToDo);
