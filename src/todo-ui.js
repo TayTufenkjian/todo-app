@@ -5,7 +5,7 @@ import {showListItems} from './list-ui.js';
 
 function showAddToDoForm(listID=0) {
     let form = document.createElement('form');
-    form.id = 'add-new';
+    form.classList.add('add-new');
 
     let titleField = createFormField('text', 'title', 'title', 'Title');
     let dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
@@ -43,6 +43,8 @@ function showEditToDoForm(id) {
     form.classList.add('edit-todo');
 
     let titleInput = createInput('text', 'title', 'title');
+    titleInput.classList.add('title');
+    
     let dueDateInput = createInput('date', 'due-date', 'due-date');
 
     let priorityField = createFormField('number', 'priority', 'priority', 'Priority');
@@ -59,7 +61,7 @@ function showEditToDoForm(id) {
    
     let btn = document.createElement('button');
     btn.type = 'button';
-    btn.id = 'edit-item';
+    btn.class = 'edit-item';
     btn.textContent = 'Save';
     btn.addEventListener('click', () => {
         let title = document.getElementById('title').value;
@@ -84,6 +86,7 @@ function showEditToDoForm(id) {
     let todoElement = document.getElementById(`todo-${id}`);
     let summary = document.querySelector(`#todo-${id} .summary`);
     let summaryInputs = document.createElement('div');
+    summaryInputs.classList.add('summary-inputs');
     summaryInputs.append(titleInput, dueDateInput);
     todoElement.insertBefore(summaryInputs, summary);
     summary.remove();
