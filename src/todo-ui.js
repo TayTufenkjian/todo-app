@@ -114,13 +114,15 @@ function showEditToDoForm(id) {
         }
     });
 
+    // Get the todo item element
+    let toDoElement = document.getElementById(`todo-${id}`);
+
     // Replace the summary title and date with the relevant input elements
-    let todoElement = document.getElementById(`todo-${id}`);
     let summary = document.querySelector(`#todo-${id} .summary`);
     let summaryInputs = document.createElement('div');
     summaryInputs.classList.add('summary-inputs');
     summaryInputs.append(titleInput, dueDateInput);
-    todoElement.insertBefore(summaryInputs, summary);
+    toDoElement.insertBefore(summaryInputs, summary);
     summary.remove();
 
     // Remove priority indicator icon
@@ -132,7 +134,7 @@ function showEditToDoForm(id) {
 
     // Remove the todo details and show the form in its place
     document.getElementById(`details-${id}`).remove();
-    document.getElementById(`todo-${id}`).append(form);
+    toDoElement.append(form);
     
     // Pre-fill all input elements with any existing values
     let toDo = getToDo(id);
@@ -146,9 +148,8 @@ function showEditToDoForm(id) {
     let cancelFunction = () => {
         document.querySelector(`#todo-${id} .edit-todo`).remove();
         document.querySelector(`#todo-${id} .summary-inputs`).remove();
-        document.querySelector(`#todo-${id} img`)
-        document.querySelector(`#todo-${id}`).append(summary, priorityIndicator);
-        showToDoDetails(id, toDo.list);
+        toDoElement.append(summary, priorityIndicator);
+        toDoElement.classList.remove('active');
     }
     let btnCancel = createButton('Cancel', cancelFunction, 'secondary');
     form.append(btnCancel);
