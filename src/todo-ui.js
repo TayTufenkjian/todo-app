@@ -141,7 +141,7 @@ function showEditToDoForm(id) {
     let cancelFunction = () => {
         document.querySelector(`#todo-${id} .edit-todo`).remove();
         document.querySelector(`#todo-${id} .summary-inputs`).remove();
-        document.querySelector(`#todo-${id}`).append(summary);
+        document.querySelector(`#todo-${id}`).insertBefore(summary, document.querySelector(`#todo-${id} img`));
         showToDoDetails(id, toDo.list);
     }
     let btnCancel = createButton('Cancel', cancelFunction);
