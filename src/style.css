@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-body, button, input[type="date"] {
+body, button, input[type="date"], textarea {
     font-family: -apple-system, BlinkMacSystemFont, avenir next, 
         avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, 
         roboto, noto, arial, sans-serif;
@@ -66,8 +66,18 @@ button, input[type="submit"] {
     margin-bottom: 1rem;
 }
 
+input, select, textarea {
+    font-size: 1rem;
+    min-height: 1.5rem;
+    padding: 0.25rem;
+}
+
 input.title {
     margin-right: 1rem;
+}
+
+input[type="date"] {
+    width: fit-content;
 }
 
 li {

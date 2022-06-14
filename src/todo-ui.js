@@ -123,6 +123,10 @@ function showEditToDoForm(id) {
     todoElement.insertBefore(summaryInputs, summary);
     summary.remove();
 
+    // Remove priority indicator icon
+    let priorityIndicator = document.querySelector(`#todo-${id} img`);
+    priorityIndicator.remove();
+
     // Append the other fields and the button to the form
     form.append(priorityField, descriptionField, listField, btnSave);
 
@@ -142,7 +146,8 @@ function showEditToDoForm(id) {
     let cancelFunction = () => {
         document.querySelector(`#todo-${id} .edit-todo`).remove();
         document.querySelector(`#todo-${id} .summary-inputs`).remove();
-        document.querySelector(`#todo-${id}`).insertBefore(summary, document.querySelector(`#todo-${id} img`));
+        document.querySelector(`#todo-${id} img`)
+        document.querySelector(`#todo-${id}`).append(summary, priorityIndicator);
         showToDoDetails(id, toDo.list);
     }
     let btnCancel = createButton('Cancel', cancelFunction, 'secondary');
