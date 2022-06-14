@@ -8,5 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     listenForShowToDos();
     listenForAddNewList();
     listenForShowLists();    
+
+    // Highlight active nav menu item
+    document.getElementById('show-todos').classList.add('active');
+
+    let navItems = document.querySelectorAll('nav ul li');
+
+    navItems.forEach(navItem => navItem.addEventListener('click', (event) => {
+        for (let item of navItems) {
+            item.classList.remove('active');
+        }
+        event.target.classList.add('active');
+    }));
 });
   
