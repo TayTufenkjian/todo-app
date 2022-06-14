@@ -1,6 +1,4 @@
 body {
-    display: grid;
-    grid-template-columns: min(30%,10rem) 1fr;
     height: 100vh;
     margin: 0;
 }
@@ -13,6 +11,12 @@ body, button, input[type="date"] {
 
 button.add-new {
     margin-top: 1rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: min(30%,10rem) 1fr;
+    height: 100%;
 }
 
 .done {
@@ -45,6 +49,11 @@ li {
     padding: 1rem 0;
 }
 
+main {
+    background: white;
+    color: #00181C;
+}
+
 main > * {
     margin-bottom: 1rem;
 }
@@ -52,19 +61,29 @@ main > * {
 /* This padding provides the left alignment of elements in main 
    while allowing the todo item hover background color to extend to the edge */
 main h1, main > div, .todos li, .lists, #add-new-item {
-    padding-left: 1rem;
+    padding-left: 2rem;
 }
 
 nav {
-    background: rgb(187, 187, 251);
-    padding: 1rem;
+    background: #00181C;
 }
 
 nav ul {
+    color: #e8e8e8;
     cursor: pointer;
     display: grid;
+    font-size: 1.1rem;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 3rem;
+    width: 100%;
+}
+
+nav ul li {
+    padding: 1rem 0 1rem 1rem;
+}
+
+nav ul li:hover {
+    background: rgb(4, 145, 192);
 }
 
 .options button, #add-new-item input, .edit-todo button {
@@ -90,7 +109,7 @@ nav ul {
 }
 
 .todos li.collapsed:hover {
-    background: #e8e8e8;
+    background: #f1efef;
 }
 
 .todos .summary {
@@ -105,7 +124,8 @@ nav ul {
 
 .todo-details .list .clickable {
     cursor: pointer;
-    color: blue;
+    color: rgb(4, 145, 192);
+    text-decoration: underline;
 }
 
 ul {
