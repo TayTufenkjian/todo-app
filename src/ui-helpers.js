@@ -1,6 +1,6 @@
 import {showAllToDos} from './todo-ui.js';
 
-// Helper functions for creating HTML elements
+// Helper functions for creating/updating HTML elements
 
 function createInput(type, id, name, required=false) {
     let input = document.createElement('input');
@@ -74,4 +74,12 @@ function createPageHeader(text) {
     return header;
 }
 
-export {createInput, createFormField, createPriorityField,createButton, createButtonInDiv, clearPageContent, createPageHeader};
+function updateActiveNavItem(navItemID) {
+    let navItems = document.querySelectorAll('nav ul li');
+    for (let item of navItems) {
+        item.classList.remove('active');
+    }
+    document.getElementById(navItemID).classList.add('active');
+}
+
+export {createInput, createFormField, createPriorityField, createButton, createButtonInDiv, clearPageContent, createPageHeader, updateActiveNavItem};

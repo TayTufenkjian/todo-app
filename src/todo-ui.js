@@ -1,4 +1,4 @@
-import {createInput, createFormField, createPriorityField,createButton,createButtonInDiv, clearPageContent, createPageHeader} from './ui-helpers.js';
+import {createInput, createFormField, createPriorityField,createButton,createButtonInDiv, clearPageContent, createPageHeader, updateActiveNavItem} from './ui-helpers.js';
 import {getToDosSortedByDate, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay} from './todo.js';
 import {showListItems} from './list-ui.js';
 import {getLists, getListName} from './list.js';
@@ -311,6 +311,7 @@ function showToDoDetails(id, listID=0) {
     document.querySelector(`#details-${id} .list`).addEventListener('click', () => {
         if (toDo.list) {
             showListItems(toDo.list);
+            updateActiveNavItem('show-lists');
         }
     });
 }

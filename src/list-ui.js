@@ -1,4 +1,4 @@
-import { createFormField, clearPageContent, createPageHeader, createButtonInDiv} from './ui-helpers.js';
+import { createFormField, clearPageContent, createPageHeader, createButtonInDiv, updateActiveNavItem} from './ui-helpers.js';
 import { getLists, addList, getListItems, getListName } from './list.js';
 import { showAddToDoForm, showToDos } from './todo-ui.js'
 
@@ -16,6 +16,7 @@ function listenForAddNewList() {
             let listName = document.getElementById('list-name').value;
             addList(listName);
             showLists();
+            updateActiveNavItem('show-lists');
         }
         let btnDiv = createButtonInDiv('Add list', btnFunction, 'primary')
         
