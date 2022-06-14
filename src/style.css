@@ -1,4 +1,5 @@
 body {
+    box-sizing: border-box;
     height: 100vh;
     margin: 0;
 }
@@ -9,9 +10,39 @@ body, button, input[type="date"] {
         roboto, noto, arial, sans-serif;
 }
 
-button.add-new {
+.add-new {
     margin-top: 1rem;
 }
+
+button, input[type="submit"] {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+}
+
+/* Button class styles */
+.primary {
+	background-color:#0491c0;
+	border:1px solid #037499;
+	cursor:pointer;
+	color:#ffffff;
+}
+.primary:hover {
+	background-color:#067ea3;
+}
+
+.secondary {
+    border: 1px solid gray;
+    cursor: pointer;
+}
+.secondary:hover {
+    background: rgb(219, 219, 219);
+}
+
+.primary:active, .secondary:active {
+	position:relative;
+	top:1px;
+}
+/* end Button class styles */
 
 .container {
     display: grid;

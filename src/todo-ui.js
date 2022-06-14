@@ -21,6 +21,7 @@ function showAddToDoForm(listID=0) {
     let btnAdd = document.createElement('input');
     btnAdd.type = 'submit';
     btnAdd.id = 'add-item';
+    btnAdd.classList.add('primary');
     btnAdd.value = 'Add item';
 
     form.onsubmit = () => {
@@ -44,7 +45,7 @@ function showAddToDoForm(listID=0) {
     }
 
     let cancelFunction = () => document.getElementById('add-new-item').remove();
-    let btnCancel = createButton('Cancel', cancelFunction);
+    let btnCancel = createButton('Cancel', cancelFunction, 'secondary');
 
     form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
     document.querySelector('main').append(form);
@@ -91,7 +92,7 @@ function showEditToDoForm(id) {
    
     let btnSave = document.createElement('button');
     btnSave.type = 'button';
-    btnSave.class = 'edit-item';
+    btnSave.classList.add('edit-item', 'primary');
     btnSave.textContent = 'Save';
     btnSave.addEventListener('click', () => {
         let title = document.getElementById(`title-${id}`).value;
@@ -144,7 +145,7 @@ function showEditToDoForm(id) {
         document.querySelector(`#todo-${id}`).insertBefore(summary, document.querySelector(`#todo-${id} img`));
         showToDoDetails(id, toDo.list);
     }
-    let btnCancel = createButton('Cancel', cancelFunction);
+    let btnCancel = createButton('Cancel', cancelFunction, 'secondary');
     form.append(btnCancel);
 }
 
@@ -225,7 +226,7 @@ function showAllToDos() {
     let allToDos = getToDosSortedByDate();
     let allToDosDiv = showToDos(allToDos);
 
-    let btnDiv = createButtonInDiv('Add new', showAddToDoForm);
+    let btnDiv = createButtonInDiv('Add new', showAddToDoForm, 'primary');
     btnDiv.classList.add('add-new');
 
     document.querySelector('main').append(allToDosDiv, btnDiv);
@@ -290,12 +291,9 @@ function showToDoDetails(id, listID=0) {
         }
     }
 
-    let btnEdit = createButton('Edit', editFunction);
-    btnEdit.classList.add('edit');
-
-    let btnDelete = createButton('Delete', deleteFunction);
-    btnDelete.classList.add('delete');
-    
+    let btnEdit = createButton('Edit', editFunction, 'primary');
+    let btnDelete = createButton('Delete', deleteFunction, 'secondary');
+ 
     let buttonsContainer = document.createElement('div');
     buttonsContainer.classList.add('options');    
     buttonsContainer.append(btnEdit, btnDelete);

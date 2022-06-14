@@ -45,19 +45,20 @@ function createPriorityField(fieldID) {
 }
 
 
-function createButton(text, functionOnClick) {
+function createButton(text, functionOnClick, btnClass=false) {
     let btn = document.createElement('button');
     btn.textContent = text;
     btn.type = 'button';
+    if (btnClass) btn.classList.add(btnClass);
     btn.addEventListener('click', () => {     
         functionOnClick();
     });
     return btn;
 }
 
-function createButtonInDiv(text, functionOnClick) {
+function createButtonInDiv(text, functionOnClick, btnClass=false) {
     let div = document.createElement('div');
-    let btn = createButton(text, functionOnClick);
+    let btn = createButton(text, functionOnClick, btnClass);
     div.append(btn);
     return div;
 }
