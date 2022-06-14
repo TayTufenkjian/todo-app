@@ -1,6 +1,6 @@
-import { createFormField, clearPageContent, createPageHeader, createButtonInDiv, updateActiveNavItem} from './ui-helpers.js';
-import { getLists, addList, getListItems, getListName } from './list.js';
-import { showAddToDoForm, showToDos } from './todo-ui.js'
+import { createFormField, clearPageContent, createPageHeader, createButtonInDiv, updateActiveNavItem, createButton} from './ui-helpers.js';
+import { getLists, addList, getListItems, getListName, deleteList } from './list.js';
+import { showAddToDoForm, showToDos } from './todo-ui.js';
 
 
 let main = document.querySelector('main');
@@ -64,12 +64,23 @@ function showListItems(listID) {
     let listItems = getListItems(listID);
     let listItemsDiv = showToDos(listItems, listID);    
 
-    let btnFunction = () => {
+    let addFunction = () => {
         showAddToDoForm(listID);
     }
-    let btn = createButtonInDiv('Add new', btnFunction, 'primary');
+    let btnDiv = createButtonInDiv('Add new', addFunction, 'primary');
+    btnDiv.classList.add('list','options');
 
-    main.append(header, listItemsDiv, btn);
+    let deleteFunction = () => {
+        let confirmDelete = confirm('Do you really want to delete this list? You will also delete all to-do items in the list.');
+        if (confirmDelete) {
+            deleteList(listID);
+            showLists();
+        }
+    }
+    let btnDeleteList = createButton('Delete list', deleteFunction, 'secondary')
+    btnDiv.append(btnDeleteList);
+
+    main.append(header, listItemsDiv, btnDiv);
 }
 
 

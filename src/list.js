@@ -1,4 +1,4 @@
-import {getToDosSortedByDate} from './todo.js';
+import {getToDosSortedByDate, deleteToDo} from './todo.js';
 
 // Logic for handling lists and their todo items
 
@@ -47,4 +47,20 @@ function getListName(listID) {
 }
 
 
-export {getLists, addList, getListItems, getListName};
+function deleteList(listID) {
+    // First delete all todo items in the list
+    let listItems = getListItems(listID);
+    for (let item of listItems) {
+        deleteToDo(item.id);
+    }
+    // Then delete the list
+    let lists = getLists();
+    for (let list of lists) {
+        if (list.id === listID) {
+            lists.splice(lists.indexOf(list), 1);
+        }
+    }
+    localStorage.setItem('lists', JSON.stringify(lists));
+}
+
+export {getLists, addList, getListItems, getListName, deleteList};

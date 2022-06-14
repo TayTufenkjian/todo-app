@@ -10,7 +10,7 @@ body, button, input[type="date"], textarea {
         roboto, noto, arial, sans-serif;
 }
 
-.add-new {
+.add-new, .list.options {
     margin-top: 1rem;
 }
 
@@ -100,7 +100,7 @@ main > * {
 
 /* This padding provides the left alignment of elements in main 
    while allowing the todo item hover background color to extend to the edge */
-main h1, main > div, .todos li, .lists, #add-new-item {
+main h1, main > div, .todos li, .lists li, #add-new-item {
     padding-left: 2rem;
 }
 
@@ -126,7 +126,7 @@ nav ul li:hover, nav ul li.active {
 }
 
 .options button, #add-new-item input, .edit-todo button {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
 }
 
 .todos .summary, .todos .summary-inputs {
@@ -147,7 +147,7 @@ nav ul li:hover, nav ul li.active {
     font-weight: 700;
 }
 
-.todos li.collapsed:hover {
+.todos li.collapsed:hover, .lists li:hover {
     background: #f1efef;
 }
 
