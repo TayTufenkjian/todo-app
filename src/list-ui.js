@@ -12,21 +12,14 @@ function listenForAddNewList() {
         let header = createPageHeader('Add New List');
         let content = createFormField('text', 'list-name', 'list-name', 'Name of list');
         
-        main.append(header, content);
-
-        let btnDiv = document.createElement('div');
-        let btn = document.createElement('button');
-        btn.type = 'button';
-        btn.textContent = 'Add list';
-        btn.addEventListener('click', () => {
+        let btnFunction = () => {
             let listName = document.getElementById('list-name').value;
             addList(listName);
             showLists();
-        });
-        btnDiv.append(btn);
-
-        main.append(btnDiv);
-
+        }
+        let btnDiv = createButtonInDiv('Add list', btnFunction, 'primary')
+        
+        main.append(header, content, btnDiv);
     });
 }
 
@@ -73,7 +66,7 @@ function showListItems(listID) {
     let btnFunction = () => {
         showAddToDoForm(listID);
     }
-    let btn = createButtonInDiv('Add new', btnFunction);
+    let btn = createButtonInDiv('Add new', btnFunction, 'primary');
 
     main.append(header, listItemsDiv, btn);
 }
