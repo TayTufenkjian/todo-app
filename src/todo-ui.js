@@ -307,6 +307,7 @@ function showToDoDetails(id, listID=0) {
     // Add the properties and the buttons to the page
     divDetails.append(buttonsContainer);
     document.getElementById(`todo-${id}`).append(divDetails);
+    document.getElementById(`details-${id}`).style.maxHeight = `${divDetails.scrollHeight}px`;
 
     // Listen for a click on the list name
     document.querySelector(`#details-${id} .list`).addEventListener('click', () => {
@@ -321,9 +322,10 @@ function showToDoDetails(id, listID=0) {
 function toggleDetails(id, listID) {
     let toDoElement = document.getElementById(`todo-${id}`);
     if (document.getElementById(`details-${id}`)) {
-        document.getElementById(`details-${id}`).remove();
+        document.getElementById(`details-${id}`).style.maxHeight = null;
         toDoElement.classList.remove('active');
-        toDoElement.classList.add('collapsed');
+        setTimeout(() => {document.getElementById(`details-${id}`).remove()}, 500);
+        setTimeout(() => {toDoElement.classList.add('collapsed')}, 700);
     } else {
         showToDoDetails(id, listID);
         toDoElement.classList.add('active');

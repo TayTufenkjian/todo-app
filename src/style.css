@@ -159,6 +159,9 @@ nav ul li:hover, nav ul li.active {
     grid-column: 2 / 3;
     margin: 1rem 0;
     padding-bottom: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in;
 }
 
 .todo-details .list .clickable {
