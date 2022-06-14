@@ -190,3 +190,15 @@ ul {
     padding: 0;
 }
 
+/* Styles for smaller screens */
+@media screen and (max-width: 690px) {
+    .container {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    nav ul {
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 0;
+    }
+}
