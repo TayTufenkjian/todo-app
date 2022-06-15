@@ -206,6 +206,7 @@ function showToDos(arrToDos, listID=0) {
 
         // Display icon based on priority level
         let priorityIndicator = document.createElement('img');
+        priorityIndicator.classList.add('priority-icon');
         switch (item.priority) {
             case 'high':
                 priorityIndicator.src = highPriorityIcon;

@@ -25,6 +25,7 @@ body, button, input[type="date"], textarea {
     animation-fill-mode: forwards;
 }
 
+
 .add-new, .list.options {
     margin-top: 1rem;
 }
@@ -77,8 +78,12 @@ button, input[type="submit"] {
 
 .form-field, .todo-property {
     display: grid;
-    grid-template-columns: 15rem 9rem;
+    grid-template-columns: minmax(50px, 15rem) minmax(25px, 9rem);
     margin-bottom: 1rem;
+}
+
+form#add-new-item {
+    max-width: 85%;
 }
 
 #add-new-item .form-field {
@@ -148,10 +153,14 @@ nav ul li:hover, nav ul li.active {
     margin-right: 0.5rem;
 }
 
+.priority-icon {
+    max-width: 24px;
+}
+
 .todos li {
     align-items: center;
     display: grid;
-    grid-template-columns: 1.75rem 15rem 9rem 2rem;
+    grid-template-columns: 1.75rem minmax(50px, 15rem) minmax(25px, 9rem) 2rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
