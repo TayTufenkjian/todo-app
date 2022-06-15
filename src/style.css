@@ -70,7 +70,7 @@ button, input[type="submit"] {
 }
 
 .edit-todo {
-    grid-column: 2 / 3;
+    grid-column: 2 / 4;
     margin-bottom: 1rem;
     padding: 0;
 }
@@ -89,6 +89,10 @@ input[type="text"], input[type="date"], select, textarea {
 input.title {
     margin-right: 1rem;
 }
+
+input.title, input.due {
+    margin-bottom: 0.5rem;
+} 
 
 input[type="date"] {
     width: fit-content;
@@ -144,16 +148,10 @@ nav ul li:hover, nav ul li.active {
     margin-right: 0.5rem;
 }
 
-.todos .summary, .todos .summary-inputs {
-    display: grid;
-    grid-template-columns: 200px 100px;
-    padding: 0.5rem 0;
-}
-
 .todos li {
     align-items: center;
     display: grid;
-    grid-template-columns: 1.75rem 20rem 2rem;
+    grid-template-columns: 1.75rem 200px 100px 2rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
@@ -171,7 +169,7 @@ nav ul li:hover, nav ul li.active {
 }
 
 .todo-details {
-    grid-column: 2 / 3;
+    grid-column: 2 / 4;
     margin: 1rem 0;
     padding-bottom: 1rem;
     max-height: 0;

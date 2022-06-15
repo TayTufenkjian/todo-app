@@ -5,7 +5,9 @@ import {getLists, getListName} from './list.js';
 import highPriorityIcon from './img/icon-high-priority.svg';
 import mediumPriorityIcon from './img/icon-medium-priority.svg';
 import lowPriorityIcon from './img/icon-low-priority.svg';
- 
+
+
+let main = document.querySelector('main');
 
 function showAddToDoForm(listID=0) {
     // Check if the add-new-item form is already on the page
@@ -60,6 +62,7 @@ function showEditToDoForm(id) {
     titleInput.classList.add('title');
 
     let dueDateInput = createInput('date', `due-date-${id}`, 'due-date');
+    dueDateInput.classList.add('due');
 
     let priorityField = createPriorityField(`priority-${id}`);
 
@@ -117,13 +120,13 @@ function showEditToDoForm(id) {
     // Get the todo item element
     let toDoElement = document.getElementById(`todo-${id}`);
 
-    // Replace the summary title and date with the relevant input elements
-    let summary = document.querySelector(`#todo-${id} .summary`);
-    let summaryInputs = document.createElement('div');
-    summaryInputs.classList.add('summary-inputs');
-    summaryInputs.append(titleInput, dueDateInput);
-    toDoElement.insertBefore(summaryInputs, summary);
-    summary.remove();
+    // Replace the current title and date with the relevant input elements
+    let currentTitle = document.querySelector(`#todo-${id} .title`);
+    let currentDueDate = document.querySelector(`#todo-${id} .due`);
+    toDoElement.insertBefore(titleInput, currentTitle);
+    toDoElement.insertBefore(dueDateInput, currentDueDate);
+    currentTitle.remove();
+    currentDueDate.remove();
 
     // Remove priority indicator icon
     let priorityIndicator = document.querySelector(`#todo-${id} img`);
@@ -147,8 +150,9 @@ function showEditToDoForm(id) {
     // Create and append the Cancel button
     let cancelFunction = () => {
         document.querySelector(`#todo-${id} .edit-todo`).remove();
-        document.querySelector(`#todo-${id} .summary-inputs`).remove();
-        toDoElement.append(summary, priorityIndicator);
+        document.querySelector(`#todo-${id} input.title`).remove();
+        document.querySelector(`#todo-${id} input.due`).remove();
+        toDoElement.append(currentTitle, currentDueDate, priorityIndicator);
         toDoElement.classList.remove('active');
     }
     let btnCancel = createButton('Cancel', cancelFunction, 'secondary');
@@ -167,13 +171,19 @@ function showToDos(arrToDos, listID=0) {
         todoElement.classList.add('collapsed');
 
         let titleDiv = document.createElement('div');
-        titleDiv.classList.add('title');
+        titleDiv.classList.add('title', 'summary');
         titleDiv.textContent = `${item.title}`;
+        titleDiv.addEventListener('click', () => {
+            toggleDetails(item.id, listID);
+        });
 
         let dueDateDiv = document.createElement('div');
-        dueDateDiv.classList.add('due');
+        dueDateDiv.classList.add('due', 'summary');
         let displayDate = getMonthAndDay(item.dueDate);
         dueDateDiv.textContent = `${displayDate.month} ${displayDate.day}`;
+        dueDateDiv.addEventListener('click', () => {
+            toggleDetails(item.id, listID);
+        });
 
         let checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -209,15 +219,8 @@ function showToDos(arrToDos, listID=0) {
             default:
                 console.log('Woops. Something went wrong');
         }
-       
-        let summary = document.createElement('div');
-        summary.classList.add('summary');
-        summary.addEventListener('click', (event) => {
-            toggleDetails(item.id, listID);
-        });
-
-        summary.append(titleDiv, dueDateDiv);
-        todoElement.append(checkbox, summary, priorityIndicator);
+    
+        todoElement.append(checkbox, titleDiv, dueDateDiv, priorityIndicator);
         unorderedList.append(todoElement);
     }
     return unorderedList;
