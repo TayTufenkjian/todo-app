@@ -217,6 +217,7 @@ ul {
     }
 
     main h1, main > div, .todos li, .lists li, #add-new-item {
-        padding: 0 1rem 0 1rem;
+        padding-left: 1rem; 
+        padding-right: 1rem;
     }
 }
