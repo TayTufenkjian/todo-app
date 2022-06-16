@@ -11,10 +11,20 @@ function getLists() {
     return JSON.parse(localStorage.getItem('lists'));
 }
 
+
 function listFactory(name) {
-    const id = getLists().length;
+    // Calculate the ID based on the largest existing ID value
+    let lists = getLists();
+    let maxCurrentID = 0;
+    for (let list of lists) {
+        if(list['id'] > maxCurrentID) {
+            maxCurrentID = list['id'];
+        }
+    }
+    const id = maxCurrentID + 1;
     return {id, name};
 }
+
 
 function addList(name) {
     let newList = listFactory(name);
@@ -62,5 +72,6 @@ function deleteList(listID) {
     }
     localStorage.setItem('lists', JSON.stringify(lists));
 }
+
 
 export {getLists, addList, getListItems, getListName, deleteList};
