@@ -29,7 +29,6 @@ function listFactory(name) {
 function addList(name) {
     let newList = listFactory(name);
     let lists = getLists();
-    console.log(`add lists returned ${lists}`);
     lists.push(newList);
     localStorage.setItem("lists", JSON.stringify(lists));
 }

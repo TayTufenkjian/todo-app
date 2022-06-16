@@ -80,4 +80,17 @@ function updateActiveNavItem(navItemID) {
     document.getElementById(navItemID).classList.add('active');
 }
 
-export {createInput, createFormField, createPriorityField, createButton, createButtonInDiv, clearPageContent, createPageHeader, updateActiveNavItem};
+
+function listenForActiveNavItem() {
+    document.getElementById('show-todos').classList.add('active');
+    let navItems = document.querySelectorAll('nav ul li');
+    navItems.forEach(navItem => navItem.addEventListener('click', (event) => {
+        for (let item of navItems) {
+            item.classList.remove('active');
+        }
+        event.target.classList.add('active');
+    }));
+}
+
+
+export {createInput, createFormField, createPriorityField, createButton, createButtonInDiv, clearPageContent, createPageHeader, updateActiveNavItem, listenForActiveNavItem};
