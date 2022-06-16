@@ -131,7 +131,7 @@ main > * {
 
 /* This padding provides the left alignment of elements in main 
    while allowing the todo item hover background color to extend to the edge */
-main h1, main > div, .todos li, .lists li, #add-new-item {
+main h1, main > div, .todos li, .lists li, #add-new-item, #add-new-list {
     padding-left: 2rem;
 }
 

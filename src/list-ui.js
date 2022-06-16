@@ -1,26 +1,38 @@
-import { createFormField, clearPageContent, createPageHeader, createButtonInDiv, updateActiveNavItem, createButton} from './ui-helpers.js';
-import { getLists, addList, getListItems, getListName, deleteList } from './list.js';
-import { showAddToDoForm, showToDos } from './todo-ui.js';
+import {createFormField, clearPageContent, createPageHeader, createButtonInDiv, updateActiveNavItem, createButton, createInput} from './ui-helpers.js';
+import {getLists, addList, getListItems, getListName, deleteList} from './list.js';
+import {showAddToDoForm, showToDos} from './todo-ui.js';
 
 
 let main = document.querySelector('main');
 
 function listenForAddNewList() {
     document.getElementById('add-list').addEventListener('click', () => {
-        
         clearPageContent();
         let header = createPageHeader('Add New List');
-        let content = createFormField('text', 'list-name', 'list-name', 'Name of list');
         
-        let btnFunction = () => {
+        let form = document.createElement('form');
+        form.id = 'add-new-list';
+
+        let listNameField = createFormField('text', 'list-name', 'list-name', 'Name of list', true);
+        
+        let btnAdd = document.createElement('input');
+        btnAdd.type = 'submit';
+        btnAdd.id = 'add-list';
+        btnAdd.classList.add('primary');
+        btnAdd.value = 'Add list';
+
+        form.append(listNameField, btnAdd);
+
+        form.onsubmit = () => {
             let listName = document.getElementById('list-name').value;
             addList(listName);
             showLists();
             updateActiveNavItem('show-lists');
+            // Prevent the form from actually submitting
+            return false;
         }
-        let btnDiv = createButtonInDiv('Add list', btnFunction, 'primary')
         
-        main.append(header, content, btnDiv);
+        main.append(header, form);
     });
 }
 
