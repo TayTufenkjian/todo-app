@@ -9,10 +9,11 @@ function createInput(type, id, name, required=false) {
     return input;
 }
 
+
 function createFormField(type, id, name, labelText, required=false) {
     let div = document.createElement('div');
     div.classList.add('form-field');
-    
+
     let label = document.createElement('label');
     label.setAttribute('for', id);
     label.textContent = labelText;
@@ -23,14 +24,18 @@ function createFormField(type, id, name, labelText, required=false) {
     return div;
 }
 
+
 function createPriorityField(fieldID) {
     let priorityField = document.createElement('div');
     priorityField.classList.add('form-field');
+
     let priorityLabel = document.createElement('label');
     priorityLabel .textContent = 'Priority';
     priorityLabel.for = fieldID;
+
     let prioritySelect = document.createElement('select');
     prioritySelect.id = fieldID;
+
     let priorityLevels = ['low', 'medium', 'high'];
     for (let level of priorityLevels) {
         let priorityOption = document.createElement('option');
@@ -38,6 +43,7 @@ function createPriorityField(fieldID) {
         priorityOption.textContent = level;
         prioritySelect.append(priorityOption);
     }
+
     priorityField.append(priorityLabel, prioritySelect);
     return priorityField;
 }
@@ -54,6 +60,7 @@ function createButton(text, functionOnClick, btnClass=false) {
     return btn;
 }
 
+
 function createButtonInDiv(text, functionOnClick, btnClass=false) {
     let div = document.createElement('div');
     let btn = createButton(text, functionOnClick, btnClass);
@@ -61,10 +68,11 @@ function createButtonInDiv(text, functionOnClick, btnClass=false) {
     return div;
 }
 
+
 function clearPageContent() {
-    let main = document.querySelector('main');
-    main.innerHTML = '';
+    document.querySelector('main').innerHTML = '';
 }
+
 
 function createPageHeader(text) {
     let header = document.createElement('h1');
@@ -72,15 +80,8 @@ function createPageHeader(text) {
     return header;
 }
 
-function updateActiveNavItem(navItemID) {
-    let navItems = document.querySelectorAll('nav ul li');
-    for (let item of navItems) {
-        item.classList.remove('active');
-    }
-    document.getElementById(navItemID).classList.add('active');
-}
 
-
+// Standard active nav menu item behavior
 function listenForActiveNavItem() {
     document.getElementById('show-todos').classList.add('active');
     let navItems = document.querySelectorAll('nav ul li');
@@ -90,6 +91,16 @@ function listenForActiveNavItem() {
         }
         event.target.classList.add('active');
     }));
+}
+
+
+// Update the active nav menu item when something else happens
+function updateActiveNavItem(navItemID) {
+    let navItems = document.querySelectorAll('nav ul li');
+    for (let item of navItems) {
+        item.classList.remove('active');
+    }
+    document.getElementById(navItemID).classList.add('active');
 }
 
 
