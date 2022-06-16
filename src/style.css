@@ -219,11 +219,12 @@ ul {
     }
 
     nav ul li {
+        font-size: 1rem;
         padding: 1rem;
         text-align: center;
     }
 
-    main h1, main > div, .todos li, .lists li, #add-new-item {
+    main h1, main > div, .todos li, .lists li, #add-new-item, #add-new-list {
         padding-left: 1rem; 
         padding-right: 1rem;
     }
