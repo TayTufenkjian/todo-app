@@ -1,5 +1,3 @@
-import {showAllToDos} from './todo-ui.js';
-
 // Helper functions for creating/updating HTML elements
 
 function createInput(type, id, name, required=false) {

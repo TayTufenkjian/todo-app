@@ -40,7 +40,9 @@ function toDoFactory(title, dueDate, priority, list) {
     let toDos = getToDos();
     let maxCurrentID = 0;
     for (let toDo of toDos) {
-        if (toDo['id'] > maxCurrentID) maxCurrentID = toDo['id'];
+        if (toDo['id'] > maxCurrentID) {
+            maxCurrentID = toDo['id'];  
+        }
     }
     const id = maxCurrentID + 1;
    

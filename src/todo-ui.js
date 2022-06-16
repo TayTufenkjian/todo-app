@@ -7,11 +7,14 @@ import mediumPriorityIcon from './img/icon-medium-priority.svg';
 import lowPriorityIcon from './img/icon-low-priority.svg';
 
 
+// Get the main element to which multiple functions will append child elements
 let main = document.querySelector('main');
 
 function showAddToDoForm(listID=0) {
     // Check if the add-new-item form is already on the page
-    if (document.getElementById('add-new-item')) {return}
+    if (document.getElementById('add-new-item')) {
+        return;
+    }
 
     let form = document.createElement('form');
     form.id = 'add-new-item';
@@ -20,6 +23,7 @@ function showAddToDoForm(listID=0) {
     let dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
     let priorityField = createPriorityField('priority');
 
+    // Using a submit input to trigger validation for required form elements
     let btnAdd = document.createElement('input');
     btnAdd.type = 'submit';
     btnAdd.id = 'add-item';
@@ -50,11 +54,11 @@ function showAddToDoForm(listID=0) {
     let btnCancel = createButton('Cancel', cancelFunction, 'secondary');
 
     form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
-    document.querySelector('main').append(form);
+    main.append(form);
 }
 
 
-function showEditToDoForm(id) {
+function showEditToDoForm(id, listID=0) {
     let form = document.createElement('form');
     form.classList.add('edit-todo');
 
@@ -109,18 +113,17 @@ function showEditToDoForm(id) {
 
         // If editing from the all todos page, reload all todo items
         // Otherwise reload list items
-        let header = document.querySelector('h1');
-        if (header.id === '') {
+        if (listID === 0) {
             showAllToDos();
         } else {
-            showListItems(parseInt(header.id));
+            showListItems(listID);
         }
     });
 
     // Get the todo item element
     let toDoElement = document.getElementById(`todo-${id}`);
 
-    // Replace the current title and date with the relevant input elements
+    // Replace the current title and date with the corresponding input elements
     let currentTitle = document.querySelector(`#todo-${id} .title`);
     let currentDueDate = document.querySelector(`#todo-${id} .due`);
     toDoElement.insertBefore(titleInput, currentTitle);
@@ -218,7 +221,7 @@ function showToDos(arrToDos, listID=0) {
                 priorityIndicator.src = lowPriorityIcon;
                 break;
             default:
-                console.log('Woops. Something went wrong');
+                console.log('Woops. Something went wrong with the priority icon.');
         }
     
         todoElement.append(checkbox, titleDiv, dueDateDiv, priorityIndicator);
@@ -231,7 +234,7 @@ function showToDos(arrToDos, listID=0) {
 function showAllToDos() {
     clearPageContent();
     let header = createPageHeader('All To Dos');
-    document.querySelector('main').append(header);
+    main.append(header);
 
     let allToDos = getToDosSortedByDate();
     let allToDosDiv = showToDos(allToDos);
@@ -239,7 +242,7 @@ function showAllToDos() {
     let btnDiv = createButtonInDiv('Add new', showAddToDoForm, 'primary');
     btnDiv.classList.add('add-new');
 
-    document.querySelector('main').append(allToDosDiv, btnDiv);
+    main.append(allToDosDiv, btnDiv);
 }
 
 
@@ -284,9 +287,9 @@ function showToDoDetails(id, listID=0) {
         }
     })
 
-    // Create the action buttons for edit and delete
+    // Create the edit and delete buttons
     let editFunction = () => {
-        showEditToDoForm(id);
+        showEditToDoForm(id, listID);
     }
 
     let deleteFunction = () => {
