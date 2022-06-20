@@ -55,6 +55,7 @@ function showListItems(listID) {
   btnDiv.classList.add('list', 'options');
 
   const deleteFunction = () => {
+    // eslint-disable-next-line no-restricted-globals
     const confirmDelete = confirm('Do you really want to delete this list? You will also delete all to-do items in the list.');
     if (confirmDelete) {
       deleteList(listID);
