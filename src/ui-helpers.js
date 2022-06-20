@@ -35,12 +35,12 @@ function createPriorityField(fieldID) {
   prioritySelect.id = fieldID;
 
   const priorityLevels = ["low", "medium", "high"];
-  for (const level of priorityLevels) {
+  priorityLevels.forEach((level) => {
     const priorityOption = document.createElement("option");
     priorityOption.value = level;
     priorityOption.textContent = level;
     prioritySelect.append(priorityOption);
-  }
+  });
 
   priorityField.append(priorityLabel, prioritySelect);
   return priorityField;
@@ -80,9 +80,9 @@ function listenForActiveNavItem() {
   const navItems = document.querySelectorAll("nav ul li");
   navItems.forEach((navItem) =>
     navItem.addEventListener("click", (event) => {
-      for (const item of navItems) {
+      navItems.forEach((item) => {
         item.classList.remove("active");
-      }
+      });
       event.target.classList.add("active");
     })
   );
@@ -91,9 +91,9 @@ function listenForActiveNavItem() {
 // Update the active nav menu item when something else happens
 function updateActiveNavItem(navItemID) {
   const navItems = document.querySelectorAll("nav ul li");
-  for (const item of navItems) {
+  navItems.forEach((item) => {
     item.classList.remove("active");
-  }
+  });
   document.getElementById(navItemID).classList.add("active");
 }
 
