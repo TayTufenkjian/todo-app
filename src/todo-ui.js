@@ -16,51 +16,101 @@ import lowPriorityIcon from './img/icon-low-priority.svg';
 // Get the main element to which multiple functions will append child elements
 const main = document.querySelector('main');
 
-function showAddToDoForm(listID = 0) {
-  // Check if the add-new-item form is already on the page
-  if (document.getElementById('add-new-item')) {
-    return;
+function toggleDetails(id, listID) {
+  const toDoElement = document.getElementById(`todo-${id}`);
+  if (document.getElementById(`details-${id}`)) {
+    document.getElementById(`details-${id}`).style.maxHeight = null;
+    toDoElement.classList.remove('active');
+    setTimeout(() => { document.getElementById(`details-${id}`).remove(); }, 500);
+    setTimeout(() => { toDoElement.classList.add('collapsed'); }, 700);
+  } else {
+    // eslint-disable-next-line no-use-before-define
+    showToDoDetails(id, listID);
+    toDoElement.classList.add('active');
+    toDoElement.classList.remove('collapsed');
   }
+}
 
-  const form = document.createElement('form');
-  form.id = 'add-new-item';
+function showToDos(arrToDos, listID = 0) {
+  // Generate an HTML unordered list from any array of todo items
+  const unorderedList = document.createElement('ul');
+  unorderedList.classList.add('todos');
 
-  const titleField = createFormField('text', 'title', 'title', 'Title', true);
-  const dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
-  const priorityField = createPriorityField('priority');
+  arrToDos.forEach((item) => {
+    const todoElement = document.createElement('li');
+    todoElement.id = `todo-${item.id}`;
+    todoElement.classList.add('collapsed');
 
-  // Using a submit input to trigger validation for required form elements
-  const btnAdd = document.createElement('input');
-  btnAdd.type = 'submit';
-  btnAdd.id = 'add-item';
-  btnAdd.classList.add('primary');
-  btnAdd.value = 'Add item';
+    const titleDiv = document.createElement('div');
+    titleDiv.classList.add('title', 'summary');
+    titleDiv.textContent = `${item.title}`;
+    titleDiv.addEventListener('click', () => {
+      toggleDetails(item.id, listID);
+    });
 
-  form.onsubmit = () => {
-    const title = document.getElementById('title').value;
-    const dueDate = document.getElementById('due-date').value;
-    const priority = document.getElementById('priority').value;
+    const dueDateDiv = document.createElement('div');
+    dueDateDiv.classList.add('due', 'summary');
+    const displayDate = getMonthAndDay(item.dueDate);
+    dueDateDiv.textContent = `${displayDate.month} ${displayDate.day}`;
+    dueDateDiv.addEventListener('click', () => {
+      toggleDetails(item.id, listID);
+    });
 
-    addToDo(title, dueDate, priority, listID);
-    form.remove();
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
 
-    // If adding a new todo from the all todos page, reload all todo items
-    // Otherwise reload list items
-    if (listID === 0) {
-      showAllToDos();
-    } else {
-      showListItems(listID);
+    // If the todo item is done, check the box and add strikethrough styling
+    if (item.done) {
+      checkbox.checked = true;
+      todoElement.classList.add('done');
     }
 
-    // Prevent the form from actually submitting
-    return false;
-  };
+    // Listen for a click on the checkbox to toggle the done state and strikethrough styling
+    checkbox.addEventListener('click', () => {
+      setDone(parseInt(item.id, 10), checkbox.checked);
+      if (checkbox.checked === true) {
+        checkbox.parentElement.classList.add('done');
+      } else {
+        checkbox.parentElement.classList.remove('done');
+      }
+    });
 
-  const cancelFunction = () => document.getElementById('add-new-item').remove();
-  const btnCancel = createButton('Cancel', cancelFunction, 'secondary');
+    // Display icon based on priority level
+    const priorityIndicator = document.createElement('img');
+    priorityIndicator.classList.add('priority-icon');
+    switch (item.priority) {
+      case 'high':
+        priorityIndicator.src = highPriorityIcon;
+        break;
+      case 'medium':
+        priorityIndicator.src = mediumPriorityIcon;
+        break;
+      case 'low':
+        priorityIndicator.src = lowPriorityIcon;
+        break;
+      default:
+        break;
+    }
 
-  form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
-  main.append(form);
+    todoElement.append(checkbox, titleDiv, dueDateDiv, priorityIndicator);
+    unorderedList.append(todoElement);
+  });
+  return unorderedList;
+}
+
+function showAllToDos() {
+  clearPageContent();
+  const header = createPageHeader('All To Dos');
+  main.append(header);
+
+  const allToDos = getToDosSortedByDate();
+  const allToDosDiv = showToDos(allToDos);
+
+  // eslint-disable-next-line no-use-before-define
+  const btnDiv = createButtonInDiv('Add new', showAddToDoForm, 'primary');
+  btnDiv.classList.add('add-new');
+
+  main.append(allToDosDiv, btnDiv);
 }
 
 function showEditToDoForm(id, listID = 0) {
@@ -167,85 +217,51 @@ function showEditToDoForm(id, listID = 0) {
   form.append(btnCancel);
 }
 
-function showToDos(arrToDos, listID = 0) {
-  // Generate an HTML unordered list from any array of todo items
-  const unorderedList = document.createElement('ul');
-  unorderedList.classList.add('todos');
+function showAddToDoForm(listID = 0) {
+  // Check if the add-new-item form is already on the page
+  if (document.getElementById('add-new-item')) {
+    return;
+  }
 
-  arrToDos.forEach((item) => {
-    const todoElement = document.createElement('li');
-    todoElement.id = `todo-${item.id}`;
-    todoElement.classList.add('collapsed');
+  const form = document.createElement('form');
+  form.id = 'add-new-item';
 
-    const titleDiv = document.createElement('div');
-    titleDiv.classList.add('title', 'summary');
-    titleDiv.textContent = `${item.title}`;
-    titleDiv.addEventListener('click', () => {
-      toggleDetails(item.id, listID);
-    });
+  const titleField = createFormField('text', 'title', 'title', 'Title', true);
+  const dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
+  const priorityField = createPriorityField('priority');
 
-    const dueDateDiv = document.createElement('div');
-    dueDateDiv.classList.add('due', 'summary');
-    const displayDate = getMonthAndDay(item.dueDate);
-    dueDateDiv.textContent = `${displayDate.month} ${displayDate.day}`;
-    dueDateDiv.addEventListener('click', () => {
-      toggleDetails(item.id, listID);
-    });
+  // Using a submit input to trigger validation for required form elements
+  const btnAdd = document.createElement('input');
+  btnAdd.type = 'submit';
+  btnAdd.id = 'add-item';
+  btnAdd.classList.add('primary');
+  btnAdd.value = 'Add item';
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+  form.onsubmit = () => {
+    const title = document.getElementById('title').value;
+    const dueDate = document.getElementById('due-date').value;
+    const priority = document.getElementById('priority').value;
 
-    // If the todo item is done, check the box and add strikethrough styling
-    if (item.done) {
-      checkbox.checked = true;
-      todoElement.classList.add('done');
+    addToDo(title, dueDate, priority, listID);
+    form.remove();
+
+    // If adding a new todo from the all todos page, reload all todo items
+    // Otherwise reload list items
+    if (listID === 0) {
+      showAllToDos();
+    } else {
+      showListItems(listID);
     }
 
-    // Listen for a click on the checkbox to toggle the done state and strikethrough styling
-    checkbox.addEventListener('click', () => {
-      setDone(parseInt(item.id, 10), checkbox.checked);
-      if (checkbox.checked === true) {
-        checkbox.parentElement.classList.add('done');
-      } else {
-        checkbox.parentElement.classList.remove('done');
-      }
-    });
+    // Prevent the form from actually submitting
+    return false;
+  };
 
-    // Display icon based on priority level
-    const priorityIndicator = document.createElement('img');
-    priorityIndicator.classList.add('priority-icon');
-    switch (item.priority) {
-      case 'high':
-        priorityIndicator.src = highPriorityIcon;
-        break;
-      case 'medium':
-        priorityIndicator.src = mediumPriorityIcon;
-        break;
-      case 'low':
-        priorityIndicator.src = lowPriorityIcon;
-        break;
-      default:
-        console.log('Woops. Something went wrong with the priority icon.');
-    }
+  const cancelFunction = () => document.getElementById('add-new-item').remove();
+  const btnCancel = createButton('Cancel', cancelFunction, 'secondary');
 
-    todoElement.append(checkbox, titleDiv, dueDateDiv, priorityIndicator);
-    unorderedList.append(todoElement);
-  });
-  return unorderedList;
-}
-
-function showAllToDos() {
-  clearPageContent();
-  const header = createPageHeader('All To Dos');
-  main.append(header);
-
-  const allToDos = getToDosSortedByDate();
-  const allToDosDiv = showToDos(allToDos);
-
-  const btnDiv = createButtonInDiv('Add new', showAddToDoForm, 'primary');
-  btnDiv.classList.add('add-new');
-
-  main.append(allToDosDiv, btnDiv);
+  form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
+  main.append(form);
 }
 
 function listenForShowToDos() {
@@ -326,20 +342,6 @@ function showToDoDetails(id, listID = 0) {
       updateActiveNavItem('show-lists');
     }
   });
-}
-
-function toggleDetails(id, listID) {
-  const toDoElement = document.getElementById(`todo-${id}`);
-  if (document.getElementById(`details-${id}`)) {
-    document.getElementById(`details-${id}`).style.maxHeight = null;
-    toDoElement.classList.remove('active');
-    setTimeout(() => { document.getElementById(`details-${id}`).remove(); }, 500);
-    setTimeout(() => { toDoElement.classList.add('collapsed'); }, 700);
-  } else {
-    showToDoDetails(id, listID);
-    toDoElement.classList.add('active');
-    toDoElement.classList.remove('collapsed');
-  }
 }
 
 export {

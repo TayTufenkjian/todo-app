@@ -24,6 +24,7 @@ function showLists() {
     listElement.id = list.id;
     listElement.textContent = list.name;
     listElement.addEventListener('click', () => {
+      // eslint-disable-next-line no-use-before-define
       showListItems(list.id);
     });
     unorderedList.append(listElement);
