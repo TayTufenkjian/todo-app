@@ -1,91 +1,107 @@
 import {
-  createInput, createFormField, createPriorityField, createButton, createButtonInDiv,
-  clearPageContent, createPageHeader, updateActiveNavItem,
-} from './ui-helpers';
+  createInput,
+  createFormField,
+  createPriorityField,
+  createButton,
+  createButtonInDiv,
+  clearPageContent,
+  createPageHeader,
+  updateActiveNavItem,
+} from "./ui-helpers";
 
 import {
-  getToDosSortedByDate, getToDo, addToDo, editToDo, setDone, deleteToDo, getMonthAndDay,
-} from './todo';
+  getToDosSortedByDate,
+  getToDo,
+  addToDo,
+  editToDo,
+  setDone,
+  deleteToDo,
+  getMonthAndDay,
+} from "./todo";
 
-import { showListItems } from './list-ui';
-import { getLists, getListName } from './list';
-import highPriorityIcon from './img/icon-high-priority.svg';
-import mediumPriorityIcon from './img/icon-medium-priority.svg';
-import lowPriorityIcon from './img/icon-low-priority.svg';
+import { showListItems } from "./list-ui";
+import { getLists, getListName } from "./list";
+import highPriorityIcon from "./img/icon-high-priority.svg";
+import mediumPriorityIcon from "./img/icon-medium-priority.svg";
+import lowPriorityIcon from "./img/icon-low-priority.svg";
 
 // Get the main element to which multiple functions will append child elements
-const main = document.querySelector('main');
+const main = document.querySelector("main");
 
 function toggleDetails(id, listID) {
   const toDoElement = document.getElementById(`todo-${id}`);
   if (document.getElementById(`details-${id}`)) {
     document.getElementById(`details-${id}`).style.maxHeight = null;
-    toDoElement.classList.remove('active');
-    setTimeout(() => { document.getElementById(`details-${id}`).remove(); }, 500);
-    setTimeout(() => { toDoElement.classList.add('collapsed'); }, 700);
+    toDoElement.classList.remove("active");
+    setTimeout(() => {
+      document.getElementById(`details-${id}`).remove();
+    }, 500);
+    setTimeout(() => {
+      toDoElement.classList.add("collapsed");
+    }, 700);
   } else {
     // eslint-disable-next-line no-use-before-define
     showToDoDetails(id, listID);
-    toDoElement.classList.add('active');
-    toDoElement.classList.remove('collapsed');
+    toDoElement.classList.add("active");
+    toDoElement.classList.remove("collapsed");
   }
 }
 
 function showToDos(arrToDos, listID = 0) {
   // Generate an HTML unordered list from any array of todo items
-  const unorderedList = document.createElement('ul');
-  unorderedList.classList.add('todos');
+  const unorderedList = document.createElement("ul");
+  unorderedList.classList.add("todos");
 
   arrToDos.forEach((item) => {
-    const todoElement = document.createElement('li');
+    const todoElement = document.createElement("li");
     todoElement.id = `todo-${item.id}`;
-    todoElement.classList.add('collapsed');
+    todoElement.classList.add("collapsed");
 
-    const titleDiv = document.createElement('div');
-    titleDiv.classList.add('title', 'summary');
+    const titleDiv = document.createElement("div");
+    titleDiv.classList.add("title", "summary");
     titleDiv.textContent = `${item.title}`;
-    titleDiv.addEventListener('click', () => {
+    titleDiv.addEventListener("click", () => {
       toggleDetails(item.id, listID);
     });
 
-    const dueDateDiv = document.createElement('div');
-    dueDateDiv.classList.add('due', 'summary');
+    const dueDateDiv = document.createElement("div");
+    dueDateDiv.classList.add("due", "summary");
     const displayDate = getMonthAndDay(item.dueDate);
     dueDateDiv.textContent = `${displayDate.month} ${displayDate.day}`;
-    dueDateDiv.addEventListener('click', () => {
+    dueDateDiv.addEventListener("click", () => {
       toggleDetails(item.id, listID);
     });
 
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
 
     // If the todo item is done, check the box and add strikethrough styling
     if (item.done) {
       checkbox.checked = true;
-      todoElement.classList.add('done');
+      todoElement.classList.add("done");
     }
 
     // Listen for a click on the checkbox to toggle the done state and strikethrough styling
-    checkbox.addEventListener('click', () => {
+    checkbox.addEventListener("click", () => {
       setDone(parseInt(item.id, 10), checkbox.checked);
       if (checkbox.checked === true) {
-        checkbox.parentElement.classList.add('done');
+        checkbox.parentElement.classList.add("done");
       } else {
-        checkbox.parentElement.classList.remove('done');
+        checkbox.parentElement.classList.remove("done");
       }
     });
 
     // Display icon based on priority level
-    const priorityIndicator = document.createElement('img');
-    priorityIndicator.classList.add('priority-icon');
+    const priorityIndicator = document.createElement("img");
+    priorityIndicator.classList.add("priority-icon");
     switch (item.priority) {
-      case 'high':
+      case "high":
         priorityIndicator.src = highPriorityIcon;
         break;
-      case 'medium':
+      case "medium":
         priorityIndicator.src = mediumPriorityIcon;
         break;
-      case 'low':
+      case "low":
         priorityIndicator.src = lowPriorityIcon;
         break;
       default:
@@ -100,63 +116,63 @@ function showToDos(arrToDos, listID = 0) {
 
 function showAllToDos() {
   clearPageContent();
-  const header = createPageHeader('All To Dos');
+  const header = createPageHeader("All To Dos");
   main.append(header);
 
   const allToDos = getToDosSortedByDate();
   const allToDosDiv = showToDos(allToDos);
 
   // eslint-disable-next-line no-use-before-define
-  const btnDiv = createButtonInDiv('Add new', showAddToDoForm, 'primary');
-  btnDiv.classList.add('add-new');
+  const btnDiv = createButtonInDiv("Add new", showAddToDoForm, "primary");
+  btnDiv.classList.add("add-new");
 
   main.append(allToDosDiv, btnDiv);
 }
 
 function showEditToDoForm(id, listID = 0) {
-  const form = document.createElement('form');
-  form.classList.add('edit-todo');
+  const form = document.createElement("form");
+  form.classList.add("edit-todo");
 
-  const titleInput = createInput('text', `title-${id}`, 'title');
-  titleInput.classList.add('title');
+  const titleInput = createInput("text", `title-${id}`, "title");
+  titleInput.classList.add("title");
 
-  const dueDateInput = createInput('date', `due-date-${id}`, 'due-date');
-  dueDateInput.classList.add('due');
+  const dueDateInput = createInput("date", `due-date-${id}`, "due-date");
+  dueDateInput.classList.add("due");
 
   const priorityField = createPriorityField(`priority-${id}`);
 
-  const descriptionField = document.createElement('div');
-  descriptionField.classList.add('form-field');
-  const descriptionLabel = document.createElement('label');
-  descriptionLabel.setAttribute('for', `description-${id}`);
-  descriptionLabel.textContent = 'Description';
-  const descriptionArea = document.createElement('textarea');
+  const descriptionField = document.createElement("div");
+  descriptionField.classList.add("form-field");
+  const descriptionLabel = document.createElement("label");
+  descriptionLabel.setAttribute("for", `description-${id}`);
+  descriptionLabel.textContent = "Description";
+  const descriptionArea = document.createElement("textarea");
   descriptionArea.id = `description-${id}`;
-  descriptionArea.name = 'description';
+  descriptionArea.name = "description";
   descriptionField.append(descriptionLabel, descriptionArea);
 
-  const listField = document.createElement('div');
-  listField.classList.add('form-field');
-  const listLabel = document.createElement('label');
-  listLabel.textContent = 'List';
+  const listField = document.createElement("div");
+  listField.classList.add("form-field");
+  const listLabel = document.createElement("label");
+  listLabel.textContent = "List";
   listLabel.for = `list-${id}`;
-  const listSelect = document.createElement('select');
-  listSelect.name = 'list';
+  const listSelect = document.createElement("select");
+  listSelect.name = "list";
   listSelect.id = `list-${id}`;
   const lists = getLists();
   lists.forEach((list) => {
-    const listOption = document.createElement('option');
+    const listOption = document.createElement("option");
     listOption.value = list.id;
     listOption.textContent = getListName(list.id);
     listSelect.append(listOption);
   });
   listField.append(listLabel, listSelect);
 
-  const btnSave = document.createElement('button');
-  btnSave.type = 'button';
-  btnSave.classList.add('edit-item', 'primary');
-  btnSave.textContent = 'Save';
-  btnSave.addEventListener('click', () => {
+  const btnSave = document.createElement("button");
+  btnSave.type = "button";
+  btnSave.classList.add("edit-item", "primary");
+  btnSave.textContent = "Save";
+  btnSave.addEventListener("click", () => {
     const title = document.getElementById(`title-${id}`).value;
     const dueDate = document.getElementById(`due-date-${id}`).value;
     const priority = document.getElementById(`priority-${id}`).value;
@@ -211,36 +227,36 @@ function showEditToDoForm(id, listID = 0) {
     document.querySelector(`#todo-${id} input.title`).remove();
     document.querySelector(`#todo-${id} input.due`).remove();
     toDoElement.append(currentTitle, currentDueDate, priorityIndicator);
-    toDoElement.classList.remove('active');
+    toDoElement.classList.remove("active");
   };
-  const btnCancel = createButton('Cancel', cancelFunction, 'secondary');
+  const btnCancel = createButton("Cancel", cancelFunction, "secondary");
   form.append(btnCancel);
 }
 
 function showAddToDoForm(listID = 0) {
   // Check if the add-new-item form is already on the page
-  if (document.getElementById('add-new-item')) {
+  if (document.getElementById("add-new-item")) {
     return;
   }
 
-  const form = document.createElement('form');
-  form.id = 'add-new-item';
+  const form = document.createElement("form");
+  form.id = "add-new-item";
 
-  const titleField = createFormField('text', 'title', 'title', 'Title', true);
-  const dueDateField = createFormField('date', 'due-date', 'due-date', 'Due');
-  const priorityField = createPriorityField('priority');
+  const titleField = createFormField("text", "title", "title", "Title", true);
+  const dueDateField = createFormField("date", "due-date", "due-date", "Due");
+  const priorityField = createPriorityField("priority");
 
   // Using a submit input to trigger validation for required form elements
-  const btnAdd = document.createElement('input');
-  btnAdd.type = 'submit';
-  btnAdd.id = 'add-item';
-  btnAdd.classList.add('primary');
-  btnAdd.value = 'Add item';
+  const btnAdd = document.createElement("input");
+  btnAdd.type = "submit";
+  btnAdd.id = "add-item";
+  btnAdd.classList.add("primary");
+  btnAdd.value = "Add item";
 
   form.onsubmit = () => {
-    const title = document.getElementById('title').value;
-    const dueDate = document.getElementById('due-date').value;
-    const priority = document.getElementById('priority').value;
+    const title = document.getElementById("title").value;
+    const dueDate = document.getElementById("due-date").value;
+    const priority = document.getElementById("priority").value;
 
     addToDo(title, dueDate, priority, listID);
     form.remove();
@@ -257,23 +273,23 @@ function showAddToDoForm(listID = 0) {
     return false;
   };
 
-  const cancelFunction = () => document.getElementById('add-new-item').remove();
-  const btnCancel = createButton('Cancel', cancelFunction, 'secondary');
+  const cancelFunction = () => document.getElementById("add-new-item").remove();
+  const btnCancel = createButton("Cancel", cancelFunction, "secondary");
 
   form.append(titleField, dueDateField, priorityField, btnAdd, btnCancel);
   main.append(form);
 }
 
 function listenForShowToDos() {
-  document.getElementById('show-todos').addEventListener('click', () => {
+  document.getElementById("show-todos").addEventListener("click", () => {
     showAllToDos();
   });
 }
 
 function showToDoDetails(id, listID = 0) {
-  const divDetails = document.createElement('div');
+  const divDetails = document.createElement("div");
   divDetails.id = `details-${id}`;
-  divDetails.classList.add('todo-details');
+  divDetails.classList.add("todo-details");
 
   // Get the additional properties of the todo item
   const toDo = getToDo(id);
@@ -286,18 +302,18 @@ function showToDoDetails(id, listID = 0) {
   propertiesToShow.forEach((property) => {
     const keys = Object.keys(property);
     keys.forEach((key) => {
-      const divContainer = document.createElement('div');
-      divContainer.classList.add('todo-property', `${key.toLowerCase()}`);
-      const propertyName = document.createElement('div');
-      propertyName.classList.add('detail-name');
+      const divContainer = document.createElement("div");
+      divContainer.classList.add("todo-property", `${key.toLowerCase()}`);
+      const propertyName = document.createElement("div");
+      propertyName.classList.add("detail-name");
       propertyName.textContent = key;
-      const propertyValue = document.createElement('div');
-      propertyValue.classList.add('detail-value');
+      const propertyValue = document.createElement("div");
+      propertyValue.classList.add("detail-value");
       propertyValue.textContent = `${property[key]}`;
 
       // Add an extra class for a clickable list name
-      if (key === 'List' && toDo.list) {
-        propertyValue.classList.add('clickable');
+      if (key === "List" && toDo.list) {
+        propertyValue.classList.add("clickable");
       }
 
       divContainer.append(propertyName, propertyValue);
@@ -312,7 +328,9 @@ function showToDoDetails(id, listID = 0) {
 
   const deleteFunction = () => {
     // eslint-disable-next-line no-restricted-globals
-    const confirmDelete = confirm('Do you really want to delete this to-do item?');
+    const confirmDelete = confirm(
+      "Do you really want to delete this to-do item?"
+    );
     if (confirmDelete) {
       deleteToDo(id);
       if (listID === 0) {
@@ -323,27 +341,29 @@ function showToDoDetails(id, listID = 0) {
     }
   };
 
-  const btnEdit = createButton('Edit', editFunction, 'primary');
-  const btnDelete = createButton('Delete', deleteFunction, 'secondary');
+  const btnEdit = createButton("Edit", editFunction, "primary");
+  const btnDelete = createButton("Delete", deleteFunction, "secondary");
 
-  const buttonsContainer = document.createElement('div');
-  buttonsContainer.classList.add('options');
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.classList.add("options");
   buttonsContainer.append(btnEdit, btnDelete);
 
   // Add the properties and the buttons to the page
   divDetails.append(buttonsContainer);
   document.getElementById(`todo-${id}`).append(divDetails);
-  document.getElementById(`details-${id}`).style.maxHeight = `${divDetails.scrollHeight}px`;
+  document.getElementById(
+    `details-${id}`
+  ).style.maxHeight = `${divDetails.scrollHeight}px`;
 
   // Listen for a click on the list name
-  document.querySelector(`#details-${id} .list`).addEventListener('click', () => {
-    if (toDo.list) {
-      showListItems(toDo.list);
-      updateActiveNavItem('show-lists');
-    }
-  });
+  document
+    .querySelector(`#details-${id} .list`)
+    .addEventListener("click", () => {
+      if (toDo.list) {
+        showListItems(toDo.list);
+        updateActiveNavItem("show-lists");
+      }
+    });
 }
 
-export {
-  showToDos, showAllToDos, listenForShowToDos, showAddToDoForm,
-};
+export { showToDos, showAllToDos, listenForShowToDos, showAddToDoForm };

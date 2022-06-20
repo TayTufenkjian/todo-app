@@ -1,14 +1,14 @@
-import { getToDosSortedByDate, deleteToDo } from './todo';
+import { getToDosSortedByDate, deleteToDo } from "./todo";
 
 // Logic for handling lists and their todo items
 
 function getLists() {
-  if (localStorage.getItem('lists') === null) {
+  if (localStorage.getItem("lists") === null) {
     // Initialize with a default list for todo items that do not have a user-specified list
-    const lists = [{ id: 0, name: 'default' }];
-    localStorage.setItem('lists', JSON.stringify(lists));
+    const lists = [{ id: 0, name: "default" }];
+    localStorage.setItem("lists", JSON.stringify(lists));
   }
-  return JSON.parse(localStorage.getItem('lists'));
+  return JSON.parse(localStorage.getItem("lists"));
 }
 
 function listFactory(name) {
@@ -28,7 +28,7 @@ function addList(name) {
   const newList = listFactory(name);
   const lists = getLists();
   lists.push(newList);
-  localStorage.setItem('lists', JSON.stringify(lists));
+  localStorage.setItem("lists", JSON.stringify(lists));
 }
 
 function getListItems(listID) {
@@ -40,7 +40,7 @@ function getListItems(listID) {
 function getListName(listID) {
   const lists = getLists();
   const listName = lists.find((list) => list.id === listID).name;
-  return listName === 'default' ? '(none)' : listName;
+  return listName === "default" ? "(none)" : listName;
 }
 
 function deleteList(listID) {
@@ -52,9 +52,7 @@ function deleteList(listID) {
   const lists = getLists();
   const listIndex = lists.findIndex((list) => list.id === listID);
   lists.splice(listIndex, 1);
-  localStorage.setItem('lists', JSON.stringify(lists));
+  localStorage.setItem("lists", JSON.stringify(lists));
 }
 
-export {
-  getLists, addList, getListItems, getListName, deleteList,
-};
+export { getLists, addList, getListItems, getListName, deleteList };

@@ -1,11 +1,11 @@
 // Logic for handling todo items
 
 function getToDos() {
-  if (localStorage.getItem('toDos') === null) {
+  if (localStorage.getItem("toDos") === null) {
     const toDos = [];
-    localStorage.setItem('toDos', JSON.stringify(toDos));
+    localStorage.setItem("toDos", JSON.stringify(toDos));
   }
-  return JSON.parse(localStorage.getItem('toDos'));
+  return JSON.parse(localStorage.getItem("toDos"));
 }
 
 function getToDosSortedByDate() {
@@ -35,7 +35,7 @@ function toDoFactory(title, dueDate, priority, list) {
 
   const id = maxCurrentID + 1;
   const done = false;
-  const description = '';
+  const description = "";
 
   return {
     id,
@@ -49,11 +49,11 @@ function toDoFactory(title, dueDate, priority, list) {
 }
 
 // Default list for a new todo item is the default list (id 0)
-function addToDo(title, dueDate, priority = 'low', list = 0) {
+function addToDo(title, dueDate, priority = "low", list = 0) {
   const newToDo = toDoFactory(title, dueDate, priority, list);
   const toDos = getToDos();
   toDos.push(newToDo);
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 function editToDo(id, title, dueDate, priority, description, list) {
@@ -64,41 +64,41 @@ function editToDo(id, title, dueDate, priority, description, list) {
   toDos[itemIndex].priority = priority;
   toDos[itemIndex].description = description;
   toDos[itemIndex].list = list;
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 function setDone(id, bool) {
   const toDos = getToDos();
   const itemIndex = toDos.findIndex((item) => item.id === id);
   toDos[itemIndex].done = bool;
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 function deleteToDo(id) {
   const toDos = getToDos();
   const itemIndex = toDos.findIndex((item) => item.id === id);
   toDos.splice(itemIndex, 1);
-  localStorage.setItem('toDos', JSON.stringify(toDos));
+  localStorage.setItem("toDos", JSON.stringify(toDos));
 }
 
 function getMonthAndDay(dateText) {
-  if (dateText === '') {
-    return { month: '', day: '' };
+  if (dateText === "") {
+    return { month: "", day: "" };
   }
 
   const monthChart = {
-    '01': 'Jan',
-    '02': 'Feb',
-    '03': 'Mar',
-    '04': 'Apr',
-    '05': 'May',
-    '06': 'Jun',
-    '07': 'Jul',
-    '08': 'Aug',
-    '09': 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Dec',
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec",
   };
 
   const month = monthChart[dateText.substring(5, 7)];
