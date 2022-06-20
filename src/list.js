@@ -39,7 +39,8 @@ function getListItems(listID) {
 
 function getListName(listID) {
   const lists = getLists();
-  return lists.find((list) => list.id === listID).name;
+  const listName = lists.find((list) => list.id === listID).name;
+  return listName === 'default' ? '(none)' : listName;
 }
 
 function deleteList(listID) {
